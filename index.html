@@ -84,8 +84,8 @@
 
 							<!-- Project 1: Duet Night Abyss -->
 							<div style="margin-bottom: 60px;">
-								<h3 style="border-bottom: 2px solid #ddd; padding-bottom: 10px;">01. Duet Night Abyss Recreation</h3>
-								<p style="color:#888; margin-bottom: 16px;">커스텀 C++/DirectX11 엔진 · 팀 프로젝트 · 2025.03 ~ 2026.04</p>
+								<h3 style="border-bottom: 2px solid #ddd; padding-bottom: 10px;">01. Duet Night Abyss</h3>
+								<p style="color:#888; margin-bottom: 16px;">커스텀 C++/DirectX11 엔진 · 팀 프로젝트 · 2026.02 ~ 2026.04</p>
 
 								<!-- YouTube embed -->
 								<div style="position:relative; padding-bottom:56.25%; height:0; overflow:hidden; margin-bottom:20px;">
@@ -98,14 +98,10 @@
 
 								<div style="background:#f8f8f8; padding:20px; border-left:4px solid #e44; margin-top:16px;">
 									<h4 style="margin-bottom:12px;">기술 챌린지</h4>
-									<p><strong>PhysX Ragdoll + 스켈레톤 계층 통합</strong><br/>
+									<p style="text-align: left;"><strong>PhysX Ragdoll</strong><br/>
 									PhysX는 월드 공간 기준, 스켈레톤은 로컬 공간 기준으로 동작해 단순 적용 시 본 방향이 틀어지는 문제 발생.
 									2패스 BoneCombine 구조를 설계해 월드→로컬 변환을 처리하고 ragdoll 결과를 스켈레톤에 정확히 반영.</p>
 									<br/>
-									<p><strong>PhysX raycast 크래시 디버깅</strong><br/>
-									BVH pruner 내 stale actor pointer로 인한 크래시 발생.
-									Flush_All()과 StepPhysics() 간 프레임 오더링 문제로 원인을 추적,
-									flushQueryUpdates()를 Flush_All() 직후 호출하여 해결.</p>
 								</div>
 							</div>
 
@@ -124,11 +120,11 @@
 
 								<div style="background:#f8f8f8; padding:20px; border-left:4px solid #4a90d9; margin-top:16px;">
 									<h4 style="margin-bottom:12px;">기술 챌린지</h4>
-									<p><strong>TCP 소켓 기반 멀티플레이어 상태 동기화</strong><br/>
+									<p style="text-align: left;"><strong>TCP/UDP 소켓 기반 멀티플레이어 상태 동기화</strong><br/>
 									다중 접속 환경에서 클라이언트 간 캐릭터 움직임과 상태를 실시간으로 동기화.
 									백엔드 경력에서 쌓은 서버 구조 이해를 바탕으로 로그인/채팅/게임룸 시스템까지 직접 구현.</p>
 									<br/>
-									<p><strong>네비메쉬 + 콜리전메쉬 직접 구현</strong><br/>
+									<p style="text-align: left;"><strong>네비메쉬 + 콜리전메쉬 직접 구현</strong><br/>
 									상용 엔진 없이 네비게이션 메쉬와 콜리전 메쉬를 자체 구현.
 									무기가 벽에 충돌할 때 이펙트 발생, 카메라 충돌 처리까지 포함.</p>
 								</div>
@@ -164,8 +160,8 @@
 									<h3>게임 클라이언트</h3>
 									<ul>
 										<li>C++ / DirectX11</li>
-										<li>PhysX (물리 / CCT / Ragdoll)</li>
-										<li>HLSL (스킨드 메쉬 렌더링)</li>
+										<li>PhysX</li>
+										<li>HLSL</li>
 										<li>커스텀 3D 렌더링 파이프라인</li>
 										<li>데이터 주도 FSM 설계</li>
 										<li>TCP/UDP 소켓 네트워킹</li>
@@ -194,14 +190,14 @@
 								<h2>About Me</h2>
 							</header>
 
-							<p>C#/.NET 백엔드 개발자로 3년간 일하며 서버 구조와 데이터 흐름을 다루는 경험을 쌓았습니다.
+							<p style="text-align: left;">C#/.NET 백엔드 개발자로 3년간 일하며 서버 구조와 데이터 흐름을 다루는 경험을 쌓았습니다.
 							이후 렌더링과 물리 연산의 동작 원리를 직접 구현하고 싶어 게임 클라이언트 개발로 전향했습니다.</p>
 
-							<p>커스텀 C++/DirectX11 엔진을 밑바닥부터 구축하며 PhysX 물리 연동, Ragdoll 시스템,
+							<p style="text-align: left;">커스텀 C++/DirectX11 엔진을 밑바닥부터 구축하며 PhysX 물리 연동, Ragdoll 시스템,
 							데이터 주도 FSM 몬스터 AI를 직접 설계하고 구현했습니다.
 							기능 완성보다 구조적인 문제를 찾고 근본 원인을 파고드는 방식으로 일합니다.</p>
 
-							<p>하드코딩을 지양하고 데이터 주도 설계를 선호합니다.
+							<p style="text-align: left;">하드코딩을 지양하고 데이터 주도 설계를 선호합니다.
 							서버와 클라이언트 양쪽을 이해하는 개발자로서 팀에 기여하고 싶습니다.</p>
 
 						</div>
