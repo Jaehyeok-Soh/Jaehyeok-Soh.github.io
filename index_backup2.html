@@ -6,7 +6,7 @@
 -->
 <html>
 	<head>
-		<title>소재혁 | C# 백엔드 개발자 · 게임 서버 지망</title>
+		<title>소재혁 | 게임 클라이언트 개발자</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet" href="assets/css/main.css" />
@@ -21,8 +21,8 @@
 					<!-- Logo -->
 						<div id="logo">
 							<h1 id="title">소재혁</h1>
-							<p>C# 백엔드 개발자 · 게임 서버 지망</p>
-							<p style="font-size:0.75em; color:#aaa; margin-top:4px;">C# · .NET · ASP.NET Core · MSSQL · C++</p>
+							<p>게임 클라이언트 개발자</p>
+							<p style="font-size:0.75em; color:#aaa; margin-top:4px;">C++ · DirectX11 · PhysX · HLSL</p>
 						</div>
 
 					<!-- Nav -->
@@ -60,8 +60,8 @@
 							<header>
 								<h2 class="alt">안녕하세요, <strong>소재혁</strong>입니다.</h2>
 								<p>C#/.NET 백엔드 3년 실무 경험을 바탕으로<br />
-								TCP/UDP 소켓 기반 멀티플레이어 서버를 직접 구현한<br />
-								<strong>서버 개발자</strong>입니다.</p>
+								C++/DirectX11 커스텀 엔진을 직접 구현한<br />
+								<strong>게임 클라이언트 개발자</strong>입니다.</p>
 							</header>
 
 							<footer>
@@ -79,11 +79,15 @@
 								<h2>Projects</h2>
 							</header>
 
+							<p>상용 엔진 없이 커스텀 C++/DirectX11 엔진 기반으로 제작한 프로젝트들입니다.<br />
+							렌더링, 물리, 애니메이션, 네트워크 시스템을 직접 설계하고 구현했습니다.</p>
+
 							<!-- Project 1: Duet Night Abyss -->
 							<div style="margin-bottom: 60px;">
 								<h3 style="border-bottom: 2px solid #ddd; padding-bottom: 10px;">01. Duet Night Abyss</h3>
 								<p style="color:#888; margin-bottom: 16px;">커스텀 C++/DirectX11 엔진 · 팀 프로젝트 · 2026.02 ~ 2026.04</p>
 
+								<!-- YouTube embed -->
 								<div style="position:relative; padding-bottom:56.25%; height:0; overflow:hidden; margin-bottom:20px;">
 									<iframe style="position:absolute; top:0; left:0; width:100%; height:100%;"
 										src="https://www.youtube.com/embed/to6MQVaBEzI"
@@ -94,15 +98,17 @@
 
 								<div style="background:#f8f8f8; padding:20px; border-left:4px solid #e44; margin-top:16px;">
 									<h4 style="margin-bottom:12px;">기술 챌린지</h4>
-									<p style="text-align: left;"><strong>PhysX Ragdoll + 스켈레톤 계층 통합</strong><br/>
-									BoneCombine 월드→로컬 변환을 처리하고 ragdoll 결과를 스켈레톤에 정확히 반영.</p>
+									<p style="text-align: left;"><strong>PhysX Ragdoll</strong><br/>
+									PhysX는 월드 공간 기준, 스켈레톤은 로컬 공간 기준으로 동작해 단순 적용 시 본 방향이 틀어지는 문제 발생.
+									2패스 BoneCombine 구조를 설계해 월드→로컬 변환을 처리하고 ragdoll 결과를 스켈레톤에 정확히 반영.</p>
+									<br/>
 								</div>
 							</div>
 
 							<!-- Project 2: Elden Ring -->
 							<div style="margin-bottom: 60px;">
-								<h3 style="border-bottom: 2px solid #ddd; padding-bottom: 10px;">02. Elden Ring 모작 (멀티플레이어 서버 포함)</h3>
-								<p style="color:#888; margin-bottom: 16px;">커스텀 C++/DirectX11 엔진 · 개인 프로젝트 · 3개월 · C# 서버 포함</p>
+								<h3 style="border-bottom: 2px solid #ddd; padding-bottom: 10px;">02. Elden Ring 모작</h3>
+								<p style="color:#888; margin-bottom: 16px;">커스텀 C++/DirectX11 엔진 · 개인 프로젝트 · 3개월</p>
 
 								<div style="position:relative; padding-bottom:56.25%; height:0; overflow:hidden; margin-bottom:20px;">
 									<iframe style="position:absolute; top:0; left:0; width:100%; height:100%;"
@@ -115,9 +121,8 @@
 								<div style="background:#f8f8f8; padding:20px; border-left:4px solid #4a90d9; margin-top:16px;">
 									<h4 style="margin-bottom:12px;">기술 챌린지</h4>
 									<p style="text-align: left;"><strong>TCP/UDP 소켓 기반 멀티플레이어 상태 동기화</strong><br/>
-									실시간 입력 처리는 UDP로, 로그인/채팅/게임룸처럼 신뢰성이 필요한 부분은 TCP로 분리 설계.
-									UDP 지연 패킷 방어를 위해 시퀀스 번호 기반 패킷 필터링 구현.
-									C#/.NET 서버와 C++ 클라이언트 간 통신 구조 직접 설계.</p>
+									다중 접속 환경에서 클라이언트 간 캐릭터 움직임과 상태를 실시간으로 동기화.
+									백엔드 경력에서 쌓은 서버 구조 이해를 바탕으로 로그인/채팅/게임룸 시스템까지 직접 구현.</p>
 									<br/>
 									<p style="text-align: left;"><strong>네비메쉬 + 콜리전메쉬 직접 구현</strong><br/>
 									네비게이션 메쉬와 콜리전 메쉬 구현.
@@ -152,24 +157,24 @@
 
 							<div class="row" style="text-align:left; margin-top:20px;">
 								<div class="col-6 col-12-mobile">
-									<h3>백엔드 / 게임 서버 (3년 실무)</h3>
+									<h3>게임 클라이언트</h3>
+									<ul>
+										<li>C++ / DirectX11</li>
+										<li>PhysX</li>
+										<li>HLSL</li>
+										<li>커스텀 3D 렌더링 파이프라인</li>
+										<li>데이터 주도 FSM 설계</li>
+										<li>TCP/UDP 소켓 네트워킹</li>
+									</ul>
+								</div>
+								<div class="col-6 col-12-mobile">
+									<h3>웹 백엔드 (3년 실무)</h3>
 									<ul>
 										<li>C# / .NET Framework / ASP.NET Core</li>
 										<li>RESTful API 설계 및 개발</li>
 										<li>MS SQL / MongoDB</li>
 										<li>IIS 구성 및 웹 앱 배포</li>
 										<li>분산 처리 / 멀티스레드 최적화</li>
-										<li>TCP/UDP 소켓 네트워킹</li>
-									</ul>
-								</div>
-								<div class="col-6 col-12-mobile">
-									<h3>게임 클라이언트</h3>
-									<ul>
-										<li>C++ / DirectX11</li>
-										<li>PhysX (물리 / CCT / Ragdoll)</li>
-										<li>HLSL (스킨드 메쉬 렌더링)</li>
-										<li>커스텀 3D 렌더링 파이프라인</li>
-										<li>데이터 주도 FSM 설계</li>
 									</ul>
 								</div>
 							</div>
@@ -185,16 +190,15 @@
 								<h2>About Me</h2>
 							</header>
 
-							<p style="text-align: left;">C#/.NET 백엔드 개발자로 3년간 일하며 서버 구조와 데이터 흐름을 다뤄왔습니다.
-							VDI 솔루션 개발에서는 분산 처리와 멀티스레드 병렬처리로 수집 병목을 해소했고,
-							폐쇄망 솔루션 구축 등 금융권 실서버 운영 경험을 쌓았습니다.</p>
+							<p style="text-align: left;">C#/.NET 백엔드 개발자로 3년간 일하며 서버 구조와 데이터 흐름을 다루는 경험을 쌓았습니다.
+							이후 렌더링과 물리 연산의 동작 원리를 직접 구현하고 싶어 게임 클라이언트 개발로 전향했습니다.</p>
 
-							<p style="text-align: left;">이후 게임 개발에 대한 관심으로 C++/DirectX11 기반 커스텀 엔진 개발 과정을 1년간 수료했습니다.
-							TCP/UDP 소켓 기반 멀티플레이어 서버를 직접 구현하며 클라이언트가 서버 데이터를
-							어떤 타이밍에 처리하는지 직접 체감했습니다.</p>
+							<p style="text-align: left;">커스텀 C++/DirectX11 엔진을 밑바닥부터 구축하며 PhysX 물리 연동, Ragdoll 시스템,
+							데이터 주도 FSM 몬스터 AI를 직접 설계하고 구현했습니다.
+							기능 완성보다 구조적인 문제를 찾고 근본 원인을 파고드는 방식으로 일합니다.</p>
 
-							<p style="text-align: left;">하드코딩을 지양하고 구조적인 문제를 파고드는 방식으로 일합니다.
-							클라이언트 구조를 이해하는 서버 개발자로서 팀에 기여하고 싶습니다.</p>
+							<p style="text-align: left;">하드코딩을 지양하고 데이터 주도 설계를 선호합니다.
+							서버와 클라이언트 양쪽을 이해하는 개발자로서 팀에 기여하고 싶습니다.</p>
 
 						</div>
 					</section>
