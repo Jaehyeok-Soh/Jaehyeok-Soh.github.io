@@ -110,7 +110,6 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "elden-ring-recreate.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -120,7 +119,7 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "elden-ring-recreate 의 백링크"
+              "title": "백링크"
             }
           },
           {
@@ -129,12 +128,11 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "elden-ring-recreate.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
               "icon": "links-going-out",
-              "title": "elden-ring-recreate 의 나가는 링크"
+              "title": "나가는 링크"
             }
           },
           {
@@ -172,13 +170,12 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "elden-ring-recreate.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "elden-ring-recreate 의 개요"
+              "title": "개요"
             }
           }
         ]
@@ -200,11 +197,10 @@
       "templater-obsidian:Templater": false
     }
   },
-  "active": "63bbe312146ade89",
+  "active": "a11f688e022a016b",
   "lastOpenFiles": [
+    "elden-ring-recreate.md",
     "_templates/portfolio.md",
-    "elden-ring-recreate.md",
-    "elden-ring-recreate.md",
     "환영합니다!.md",
     "_templates"
   ]

@@ -21,7 +21,7 @@ title                    : "Soh's Code"
 title_separator          : "-"
 subtitle                 : # site tagline that appears below site title in masthead
 name                     : "소재혁"
-description              : "C++ 게임 서버 개발자"
+description              : "게임 개발자"
 url                      : # the base hostname & protocol for your site e.g. "https://jaehyeok-soh.github.io"
 baseurl                  : # the subpath of your site, e.g. "/blog"
 repository               : # GitHub username/repo-name e.g. "jaehyeok-soh/jaehyeok-soh.github.io"
