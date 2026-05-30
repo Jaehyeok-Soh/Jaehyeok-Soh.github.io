@@ -4,11 +4,11 @@
     "type": "split",
     "children": [
       {
-        "id": "830eac5aa43d135c",
+        "id": "08656313b3e69c62",
         "type": "tabs",
         "children": [
           {
-            "id": "4dec5550e282aa5d",
+            "id": "36119462968b8580",
             "type": "leaf",
             "state": {
               "type": "empty",
@@ -157,13 +157,23 @@
               "icon": "lucide-list",
               "title": "개요"
             }
+          },
+          {
+            "id": "01a427fa2321722e",
+            "type": "leaf",
+            "state": {
+              "type": "calendar",
+              "state": {},
+              "icon": "calendar-with-checkmark",
+              "title": "Calendar"
+            }
           }
-        ]
+        ],
+        "currentTab": 4
       }
     ],
     "direction": "horizontal",
-    "width": 300,
-    "collapsed": true
+    "width": 300
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -174,14 +184,20 @@
       "templates:템플릿 삽입": false,
       "command-palette:명령어 팔레트 열기": false,
       "bases:새 베이스 생성하기": false,
-      "templater-obsidian:Templater": false
+      "templater-obsidian:Templater": false,
+      "obsidian-git:Open Git source control": false
     }
   },
-  "active": "4dec5550e282aa5d",
+  "active": "36119462968b8580",
   "lastOpenFiles": [
+    "assets/images/catppuccin_mocha-skin-archive-large.png",
+    "assets/images/catppuccin_latte-skin-archive-large.png",
     "_templates/post.md",
-    "_templates/portfolio.md",
     "_templates/adr.md",
+    "_templates/portfolio.md",
+    "Untitled.md",
+    "_posts/무제.md",
+    "_posts/2026-05-21-blank.md",
     "_templates",
     "_pages/adr.md",
     "_adrs/레벨 연동.md",
