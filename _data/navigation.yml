@@ -6,5 +6,7 @@ main:
     url: /posts/
   - title: "Portfolio"
     url: /portfolio/
+  - title: "ADR"
+    url: /adr/
   # - title: "Sitemap"
   #   url: /sitemap/
