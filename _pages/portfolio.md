@@ -6,7 +6,7 @@ permalink: /portfolio/
 classes: wide
 author_profile: false
 toc: false
-----------
+---
 
 <div class="portfolio-hero">
   <span class="portfolio-hero__label">GAME SERVER DEVELOPER</span>
