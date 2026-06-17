@@ -216,3 +216,17 @@ Portfolio
         grid-template-columns: 1fr;
     }
 }
+
+.mermaid {
+    width: 100%;
+    margin: 2rem auto;
+    overflow-x: auto;
+    text-align: center;
+}
+
+.mermaid svg {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin: 0 auto;
+}

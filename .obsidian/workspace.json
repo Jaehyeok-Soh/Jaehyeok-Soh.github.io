@@ -4,11 +4,11 @@
     "type": "split",
     "children": [
       {
-        "id": "08656313b3e69c62",
+        "id": "8dbb45ac91fe9853",
         "type": "tabs",
         "children": [
           {
-            "id": "36119462968b8580",
+            "id": "5ad1a97f71c666c7",
             "type": "leaf",
             "state": {
               "type": "markdown",
@@ -193,8 +193,13 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "36119462968b8580",
+  "active": "5ad1a97f71c666c7",
   "lastOpenFiles": [
+    "assets/Pasted image 20260617223702.png",
+    "_portfolio/duet-night-abyss-recreate.md",
+    "_portfolio/elden-ring-recreate.md",
+    "assets/Pasted image 20260618001819.png",
+    "assets/Pasted.md",
     "assets/Pasted image 20260617234241.png",
     "assets/Pasted image 20260617234224.png",
     "assets/Pasted image 20260617233821.png",
@@ -204,10 +209,6 @@
     "assets/Pasted image 20260617230114.png",
     "assets/Pasted image 20260617225057.png",
     "assets/Pasted image 20260617225026.png",
-    "assets/Pasted image 20260617223702.png",
-    "assets/Pasted image 20260617222217.png",
-    "_portfolio/elden-ring-recreate.md",
-    "_portfolio/duet-night-abyss-recreate.md",
     "_templates/portfolio.md",
     "_includes/portfolio-section.html",
     "_includes/새 텍스트 문서.txt",
