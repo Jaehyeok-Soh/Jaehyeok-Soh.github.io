@@ -42,7 +42,7 @@ toc_sticky: true
 ## 담당 역할 및 기여
 
 6인 팀 프로젝트에서 물리 시스템과 개발 툴, 몬스터 및 콘텐츠 시스템의 설계와 구현을 담당했습니다.
-##### 직접 설계한 부분
+### 직접 설계한 부분
 * PhysX 연동 및 물리 월드 구축
 	* DirectX 11 기반 프레임워크에 PhysX를 연동하고, 물리 객체의 생성/갱신/해제를 관리하는 구조를 구현했습니다.
 	* 몬스터 사망 시 본 애니메이션에서 물리 시뮬레이션으로 전환되는 래그돌 시스템을 구현했습니다.
@@ -65,11 +65,13 @@ toc_sticky: true
 ### PhysX 물리 월드 및 충돌 이벤트 시스템
 
 - 목적
+
 	DirectX 11 기반 실행 환경에서 충돌, 트리거, 공격 판정과 캐릭터 이동을 처리하기 위해 PhysX를 연동했습니다.
 	
 	PhysX API를 각 게임 오브젝트에서 직접 호출하는 방식이 아니라. 물리 월드의 초기화와 시뮬레이션, 물리 객체 생성, 충돌 이벤트 전달을 담당하는 모듈과 팩토리 구조를 구성했습니다.
 
 - 설계
+
 	CPhysics_Module이 PhysX Foundation, Physics Scene, Dispatcher와 CCT Manager의 생성 및 해제를 담당하도록 구현했습니다.
 	
 	물리 객체의 종류에 따른 생성 책임은 다음과 같이 분리했습니다.
@@ -84,6 +86,7 @@ toc_sticky: true
 	충돌 관계를 PhysX Filter Data와 커스텀 FilterShader를 통해 레이어 단위로 제어했습니다. 공격, 스킬, 몬스터, 맵, 트리거, 래그돌 등 객체 종류에 따라 필요한 충돌 쌍만 이벤트를 발생시키도록 구성했습니다.
 
 - 구현 방식
+
 	게임 엔진 갱신 과정에서 CPhysics_Module::StepPhysics()를 호출하여 PhysX Scene의 simulate()와 fetchResults()를 수행했습니다.
 	
 	PhysX에서 발생한 충돌과 트리거 결과는 CPhysics_FilterEventCallback을 거쳐 CGameObject의 충돌 이벤트로 전달했습니다. 이를 통해 몬스터, NPC, 상호작용 오브젝트, TriggerBox와 공격 판정이 같은 물리 이벤트 흐름을 사용할 수 있도록 했습니다.
@@ -115,6 +118,7 @@ flowchart TD
 ```
 
 - 결과
+
 	PhysX의 물리 월드 생명주기를 게임 엔진의 갱신 흐름과 통합했으며, 정적/동적 객체와 Trigger, 공격 Overlap, Raycast를 공통된 물리 처리 구조에서 관리할 수 있게 되었습니다.
 	
 	또한 충돌 결과가 게임 오브젝트 이벤트로 전달되도록 구성하여, 물리 라이브러리와 실제 게임 콘텐츠 로직이 직접 결합되는 범위를 줄였습니다.
@@ -149,11 +153,13 @@ flowchart TD
 ### PhysX 기반 래그돌 시스템
 
 - 목적
+
 	몬스터가 사망하거나 강한 공격에 피격됐을 때, 본 애니메이션으로 재생되는 정해진 사망 동작에서 벗어나 물리 환경에 반응하며 쓰러지도록 래그돌 시스템을 구현했습니다.
 	
 	단순히 여러 개의 RigidBody를 배치하는 방식이 아니라, 캐릭터의 본 계층을 PhysX Articulation Link와 Joint로 구성하고 물리 시뮬레이션 결과를 다시 모델의 본 Transform에 반영하는 구조를 사용했습니다.
 
 - 설계
+
 	CModel::Mapping_Ragdoll_Bone()에서 래그돌에 사용할 주요 본을 선별하고, 각 본의 부모/자식 관계와 초기 Transform 정보를 Ragdoll_Bone_Description 형태로 구성했습니다.
 	
 	CPhysics_RagdollSystem은 해당 정보를 바탕으로 PxArticulationReducedCoordinate와 PxArticulationLink, Joint와 Capsule Shape를 생성하도록 했습니다.
@@ -166,6 +172,7 @@ flowchart TD
 	- ComShader_RagDoll : 래그돌 Transform을 GPU 애니메이션 처리 과정에 반영
 
 - 구현 방식
+
 	몬스터 FSM의 사망 상타에서 래그돌 활성화 Feature를 실행하면, CMonsterControlContext가 래그돌 시스템에 활성화를 요청하도록 구성했습니다.
 	
 	활성화 시점에는 현재 애니메이션의 본 Pose를 기준으로 PhysX Articulation을 배치한 뒤 Scene에 추가하고 물리 시뮬레이션을 시작했습니다.
@@ -225,8 +232,7 @@ sequenceDiagram
 
 ## 트러블슈팅
 ### 문제
-> 실제로 발생한 증상
-- 
+
 ### 원인
 * 어떻게 원인을 확인했는지
 * 실제 원인이 무엇이었는지
