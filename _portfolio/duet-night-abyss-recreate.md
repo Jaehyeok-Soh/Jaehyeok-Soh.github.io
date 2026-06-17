@@ -65,30 +65,30 @@ toc_sticky: true
 ### PhysX 물리 월드 및 충돌 이벤트 시스템
 
 - 목적
-DirectX 11 기반 실행 환경에서 충돌, 트리거, 공격 판정과 캐릭터 이동을 처리하기 위해 PhysX를 연동했습니다.
-
-PhysX API를 각 게임 오브젝트에서 직접 호출하는 방식이 아니라. 물리 월드의 초기화와 시뮬레이션, 물리 객체 생성, 충돌 이벤트 전달을 담당하는 모듈과 팩토리 구조를 구성했습니다.
+	DirectX 11 기반 실행 환경에서 충돌, 트리거, 공격 판정과 캐릭터 이동을 처리하기 위해 PhysX를 연동했습니다.
+	
+	PhysX API를 각 게임 오브젝트에서 직접 호출하는 방식이 아니라. 물리 월드의 초기화와 시뮬레이션, 물리 객체 생성, 충돌 이벤트 전달을 담당하는 모듈과 팩토리 구조를 구성했습니다.
 
 - 설계
-CPhysics_Module이 PhysX Foundation, Physics Scene, Dispatcher와 CCT Manager의 생성 및 해제를 담당하도록 구현했습니다.
-
-물리 객체의 종류에 따른 생성 책임은 다음과 같이 분리했습니다.
-
-- CPhysics_ActorFactory : Static, Dynamic, Kinematic Actor 생성
-- CPhysics_ShapeFactory : Box, Sphere, Capsule, Mesh 생성
-- CPhysics_FilterEventCallback : Contact, Trigger, Overlap, Raycast 결과를 게임 오브젝트 이벤트로 변환
-- CPhysicsCollider, CPhysicsRigidBody : 게임 오브젝트와 PhysX 객체를 연결하는 컴포넌트
-
-게임 오브젝트는 Collider와 RigidBody 설정 데이터를 전달하고, 팩토리는 해당 정보를 바탕으로 PhysX Shape와 Actor를 생성하도록 했습니다.
-
-충돌 관계를 PhysX Filter Data와 커스텀 FilterShader를 통해 레이어 단위로 제어했습니다. 공격, 스킬, 몬스터, 맵, 트리거, 래그돌 등 객체 종류에 따라 필요한 충돌 쌍만 이벤트를 발생시키도록 구성했습니다.
+	CPhysics_Module이 PhysX Foundation, Physics Scene, Dispatcher와 CCT Manager의 생성 및 해제를 담당하도록 구현했습니다.
+	
+	물리 객체의 종류에 따른 생성 책임은 다음과 같이 분리했습니다.
+	
+	- CPhysics_ActorFactory : Static, Dynamic, Kinematic Actor 생성
+	- CPhysics_ShapeFactory : Box, Sphere, Capsule, Mesh 생성
+	- CPhysics_FilterEventCallback : Contact, Trigger, Overlap, Raycast 결과를 게임 오브젝트 이벤트로 변환
+	- CPhysicsCollider, CPhysicsRigidBody : 게임 오브젝트와 PhysX 객체를 연결하는 컴포넌트
+	
+	게임 오브젝트는 Collider와 RigidBody 설정 데이터를 전달하고, 팩토리는 해당 정보를 바탕으로 PhysX Shape와 Actor를 생성하도록 했습니다.
+	
+	충돌 관계를 PhysX Filter Data와 커스텀 FilterShader를 통해 레이어 단위로 제어했습니다. 공격, 스킬, 몬스터, 맵, 트리거, 래그돌 등 객체 종류에 따라 필요한 충돌 쌍만 이벤트를 발생시키도록 구성했습니다.
 
 - 구현 방식
-게임 엔진 갱신 과정에서 CPhysics_Module::StepPhysics()를 호출하여 PhysX Scene의 simulate()와 fetchResults()를 수행했습니다.
-
-PhysX에서 발생한 충돌과 트리거 결과는 CPhysics_FilterEventCallback을 거쳐 CGameObject의 충돌 이벤트로 전달했습니다. 이를 통해 몬스터, NPC, 상호작용 오브젝트, TriggerBox와 공격 판정이 같은 물리 이벤트 흐름을 사용할 수 있도록 했습니다.
-
-공격 판정에서는 충돌 대상뿐 아니라 충돌 지점과 공격 프리셋 정보가 포함된 HIT_DESC를 전달하여, 데미지와 이펙트, 사운드, 피격 반응에서 공통으로 사용할 수 있도록 구성했습니다.
+	게임 엔진 갱신 과정에서 CPhysics_Module::StepPhysics()를 호출하여 PhysX Scene의 simulate()와 fetchResults()를 수행했습니다.
+	
+	PhysX에서 발생한 충돌과 트리거 결과는 CPhysics_FilterEventCallback을 거쳐 CGameObject의 충돌 이벤트로 전달했습니다. 이를 통해 몬스터, NPC, 상호작용 오브젝트, TriggerBox와 공격 판정이 같은 물리 이벤트 흐름을 사용할 수 있도록 했습니다.
+	
+	공격 판정에서는 충돌 대상뿐 아니라 충돌 지점과 공격 프리셋 정보가 포함된 HIT_DESC를 전달하여, 데미지와 이펙트, 사운드, 피격 반응에서 공통으로 사용할 수 있도록 구성했습니다.
 
 - 구조
 ```mermaid
@@ -115,9 +115,9 @@ flowchart TD
 ```
 
 - 결과
-PhysX의 물리 월드 생명주기를 게임 엔진의 갱신 흐름과 통합했으며, 정적/동적 객체와 Trigger, 공격 Overlap, Raycast를 공통된 물리 처리 구조에서 관리할 수 있게 되었습니다.
-
-또한 충돌 결과가 게임 오브젝트 이벤트로 전달되도록 구성하여, 물리 라이브러리와 실제 게임 콘텐츠 로직이 직접 결합되는 범위를 줄였습니다.
+	PhysX의 물리 월드 생명주기를 게임 엔진의 갱신 흐름과 통합했으며, 정적/동적 객체와 Trigger, 공격 Overlap, Raycast를 공통된 물리 처리 구조에서 관리할 수 있게 되었습니다.
+	
+	또한 충돌 결과가 게임 오브젝트 이벤트로 전달되도록 구성하여, 물리 라이브러리와 실제 게임 콘텐츠 로직이 직접 결합되는 범위를 줄였습니다.
 
 ![](assets/Pasted%20image%2020260617221651.png)
 - `[노란색 캡슐`] : 캐릭터 CCT
