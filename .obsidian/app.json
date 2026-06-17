@@ -7,6 +7,6 @@
     "downscalePercent": 100
   },
   "attachmentFolderPath": "assets",
-  "newLinkFormat": "relative",
+  "newLinkFormat": "absolute",
   "useMarkdownLinks": true
 }
