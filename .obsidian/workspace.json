@@ -11,10 +11,14 @@
             "id": "36119462968b8580",
             "type": "leaf",
             "state": {
-              "type": "empty",
-              "state": {},
+              "type": "markdown",
+              "state": {
+                "file": "_portfolio/duet-night-abyss-recreate.md",
+                "mode": "source",
+                "source": false
+              },
               "icon": "lucide-file",
-              "title": "새 탭"
+              "title": "duet-night-abyss-recreate"
             }
           }
         ]
@@ -150,12 +154,13 @@
             "state": {
               "type": "outline",
               "state": {
+                "file": "_portfolio/duet-night-abyss-recreate.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "개요"
+              "title": "duet-night-abyss-recreate 의 개요"
             }
           },
           {
@@ -190,12 +195,15 @@
   },
   "active": "36119462968b8580",
   "lastOpenFiles": [
+    "_templates/portfolio.md",
+    "_portfolio/duet-night-abyss-recreate.md",
+    "_portfolio/duet-nights-recreate.md",
+    "_portfolio/elden-ring-recreate.md",
+    "Untitled 1.md",
     "assets/images/catppuccin_mocha-skin-archive-large.png",
     "assets/images/catppuccin_latte-skin-archive-large.png",
     "_templates/post.md",
     "_templates/adr.md",
-    "_templates/portfolio.md",
-    "Untitled.md",
     "_posts/무제.md",
     "_posts/2026-05-21-blank.md",
     "_templates",

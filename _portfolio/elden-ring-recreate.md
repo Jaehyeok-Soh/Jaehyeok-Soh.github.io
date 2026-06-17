@@ -5,7 +5,10 @@ header:
   teaser: /assets/images/
 categories:
   - Portfolio
-tags: []
+  - Client
+tags:
+  - Portfolio
+  - Client
 toc: true
 toc_label: 목차
 toc_sticky: true
@@ -13,13 +16,13 @@ toc_sticky: true
 
 ## 프로젝트 개요
 
-| 항목 | 내용 |
-|------|------|
-| 기간 | 0000.00 ~ 0000.00 |
-| 인원 | 0인 |
-| 역할 | |
-| 언어 | |
-| 기술 | |
+| 항목  | 내용                           |
+| --- | ---------------------------- |
+| 기간  | 2026.01 ~ 2026.03            |
+| 인원  | 6인                           |
+| 역할  | 클라이언트, 서버                    |
+| 언어  | C++, C#                      |
+| 기술  | TCP/UDP, MongoDB, DirectX 11 |
 
 ## 기획 의도
 
