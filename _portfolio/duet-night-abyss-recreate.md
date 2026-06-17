@@ -118,25 +118,34 @@ flowchart TD
 PhysX의 물리 월드 생명주기를 게임 엔진의 갱신 흐름과 통합했으며, 정적/동적 객체와 Trigger, 공격 Overlap, Raycast를 공통된 물리 처리 구조에서 관리할 수 있게 되었습니다.
 
 또한 충돌 결과가 게임 오브젝트 이벤트로 전달되도록 구성하여, 물리 라이브러리와 실제 게임 콘텐츠 로직이 직접 결합되는 범위를 줄였습니다.
+
 ![](assets/Pasted%20image%2020260617221651.png)
 - `[노란색 캡슐`] : 캐릭터 CCT
 - `[초록색 캡슐`] : 몬스터 CCT
 - `[빨간색 바닥]`: 지형 Static 메쉬
+
 ![](/assets/Pasted%20image%2020260617222113.png)
 - `[노란색 직육면체]`: 캐릭터의 상호작용 감지 TriggerBox
+
 ![](/assets/Pasted%20image%2020260617222217.png)
 - `[노란색 구]`: 캐릭터의 몬스터 감지 Trigger Sphere (미니맵에서 사용)
+
 ![](/assets/Pasted%20image%2020260617223702.png)
 - `[검은색 구 와이어프레임]`: 공격용 Overlap (Scene Query)
 - `[작은 초록색 알갱이]`: 래그돌 (Hit 판정으로 래그돌 상태 돌입)
+
 ![](/assets/Pasted%20image%2020260617225026.png)
 - PhysX 루프 중 물리 레이어와 마스크를 비교해 충돌 대상 선별 (FilterShader)
+
 ![](/assets/Pasted%20image%2020260617230114.png)
 - 선별된 충돌 이벤트를 OnCollisionEnter, OnCollision, OnCollisionExit 형태로 게임 오브젝트에 전달
+
 ![](/assets/Pasted%20image%2020260617230236.png)
 - 공격용 Overlap 충돌 이벤트를 데미지, 공격자 정보와 함께 게임 오브젝트로 넘겨주는 부분
+
 ![](/assets/Pasted%20image%2020260617230347.png)
 - 총(Gun)의 Raycast 무기 공격 판정을 게임 오브젝트로 넘겨주는 부분
+
 ### PhysX 기반 래그돌 시스템
 
 - 목적
@@ -194,14 +203,18 @@ sequenceDiagram
 몬스터 사망 시 애니메이션 제어에서 PhysX 물리 제어로 전환되는 흐름을 구현했습니다.
 
 래그돌 결과를 모델의 본 행렬과 GPU 애니메이션 처리 과정에 연결하여, 몬스터가 바닥과 오브젝트에 충돌하며 쓰러지고 피격 방향에 따라 반응하도록 했습니다.
+
 ![](/assets/output.gif)
 ![](/assets/Pasted%20image%2020260617233821.png)
 - 피격당한 몬스터 CCT 캡슐은 비활성화 되고 래그돌이 배치된다
+
 ![](/assets/Pasted%20image%2020260617234224.png)
-![](/assets/Pasted%20image%2020260617234241.png)- Awake 시 초기 위치가 바닥 밑으로 가는 불상사를 막기 위해 y 값을 보정한다.
+![](/assets/Pasted%20image%2020260617234241.png)
+- Awake 시 초기 위치가 바닥 밑으로 가는 불상사를 막기 위해 y 값을 보정한다.
 - Awake 이전의 본 애니메이션이 수행한 Pelvis 본의 위치를 가져와 래그돌 Root 관절 위치에 셋팅한다.
 - 이전 래그돌 활성화 시 남아있던 물리 시뮬레이션이 있다면 초기화해주고 Articulation을 깨워 PhysX의 Scene에서 활동할 수 있게한다.
-### 구현내용
+
+### 구현내용상세
 
 - 목적
 - 설계
