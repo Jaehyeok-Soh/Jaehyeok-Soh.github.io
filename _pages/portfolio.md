@@ -9,7 +9,7 @@ toc: false
 ---
 
 <div class="portfolio-hero">
-  <span class="portfolio-hero__label">GAME SERVER DEVELOPER</span>
+  <span class="portfolio-hero__label">GAME DEVELOPER</span>
 
   <p class="portfolio-hero__lead">
     C#/.NET 백엔드 개발 경력과 C++ 게임 프로젝트 경험을 바탕으로,
