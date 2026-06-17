@@ -1,9 +1,10 @@
 ---
-
 title: "Portfolio"
 layout: single
 permalink: /portfolio/
-classes: wide
+classes:
+  - wide
+  - portfolio-page
 author_profile: false
 toc: false
 ---
