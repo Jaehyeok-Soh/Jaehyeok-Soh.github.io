@@ -1,84 +1,84 @@
 {% assign projects = site.portfolio
-| where: "portfolio_category", include.category
-| sort: "order"
+  | where: "portfolio_category", include.category
+  | sort: "order"
 %}
 
 {% if projects.size > 0 %}
-
 <section class="portfolio-section">
+  <header class="portfolio-section__header">
+    <div class="portfolio-section__title">
+      <span class="portfolio-section__eyebrow">
+        {{ include.eyebrow }}
+      </span>
 
-  <div class="portfolio-section__header">
-    <div>
-      <span class="portfolio-section__eyebrow">{{ include.eyebrow }}</span>
       <h2>{{ include.title }}</h2>
     </div>
 
-```
-<p>{{ include.description }}</p>
-```
-
-  </div>
+    <p>{{ include.description }}</p>
+  </header>
 
   <div class="portfolio-grid">
     {% for post in projects %}
+      {% assign teaser = post.header.teaser
+        | default: post.teaser
+        | default: ""
+      %}
 
-```
-  {% assign teaser = post.header.teaser | default: post.teaser | default: "" %}
-
-  <article class="portfolio-card">
-    <a href="{{ post.url | relative_url }}" class="portfolio-card__link">
-
-      {% if teaser != "" %}
-      <div class="portfolio-card__image">
-        <img
-          src="{{ teaser | relative_url }}"
-          alt="{{ post.title | escape }}"
-          loading="lazy"
+      <article class="portfolio-card">
+        <a
+          href="{{ post.url | relative_url }}"
+          class="portfolio-card__link"
         >
-      </div>
-      {% else %}
-      <div class="portfolio-card__image portfolio-card__image--placeholder">
-        <span>{{ include.placeholder }}</span>
-      </div>
-      {% endif %}
+          {% if teaser != "" %}
+            <div class="portfolio-card__image">
+              <img
+                src="{{ teaser | relative_url }}"
+                alt="{{ post.title | escape }}"
+                loading="lazy"
+              >
+            </div>
+          {% else %}
+            <div class="portfolio-card__image portfolio-card__image--placeholder">
+              <span>{{ include.placeholder }}</span>
+            </div>
+          {% endif %}
 
-      <div class="portfolio-card__body">
+          <div class="portfolio-card__body">
+            {% if post.project_type %}
+              <span class="portfolio-card__type">
+                {{ post.project_type }}
+              </span>
+            {% endif %}
 
-        {% if post.project_type %}
-        <span class="portfolio-card__type">
-          {{ post.project_type }}
-        </span>
-        {% endif %}
+            <h3 class="portfolio-card__title">
+              {{ post.title }}
+            </h3>
 
-        <h3 class="portfolio-card__title">
-          {{ post.title }}
-        </h3>
+            {% if post.description %}
+              <p class="portfolio-card__description">
+                {{ post.description | strip_html | strip_newlines | truncate: 130 }}
+              </p>
+            {% elsif post.excerpt %}
+              <p class="portfolio-card__description">
+                {{ post.excerpt | strip_html | strip_newlines | truncate: 130 }}
+              </p>
+            {% endif %}
 
-        {% if post.excerpt %}
-        <p class="portfolio-card__description">
-          {{ post.excerpt | strip_html | strip_newlines | truncate: 130 }}
-        </p>
-        {% endif %}
+            {% if post.stack %}
+              <div class="portfolio-card__stack">
+                {% for technology in post.stack limit: 5 %}
+                  <span>{{ technology }}</span>
+                {% endfor %}
+              </div>
+            {% endif %}
 
-        {% if post.stack %}
-        <div class="portfolio-card__stack">
-          {% for technology in post.stack limit: 5 %}
-          <span>{{ technology }}</span>
-          {% endfor %}
-        </div>
-        {% endif %}
-
-        <span class="portfolio-card__more">
-          프로젝트 상세 보기 →
-        </span>
-
-      </div>
-    </a>
-  </article>
-
-{% endfor %}
-```
-
+            <span class="portfolio-card__more">
+              프로젝트 상세 보기 →
+            </span>
+          </div>
+        </a>
+      </article>
+    {% endfor %}
   </div>
 </section>
 {% endif %}
