@@ -16,19 +16,24 @@ toc_sticky: true
 ---
 ## 프로젝트 개요
 
-| 항목     | 내용                                                |
-| :----- | :------------------------------------------------ |
-| **기간** | 2026.01 ~ 2026.03                                 |
-| **인원** | 6인                                                |
-| **역할** | PhysX, 래그돌, 애니메이션 툴, FSM 툴, 중간 보스, 대화/상호작용/퀘스트시스템 |
-| **언어** | C++                                               |
-| **기술** | PhysX, Data-Driven                                |
+| 항목     | 내용                                                   |
+| :----- | :--------------------------------------------------- |
+| **기간** | 2026.01 ~ 2026.03                                    |
+| **인원** | 6인                                                   |
+| **역할** | PhysX, 래그돌, 애니메이션 툴, FSM 툴, 중간 보스, 대화/상호작용/퀘스트시스템    |
+| **언어** | C++                                                  |
+| **기술** | C++, DirectX 11, PhysX, ImGui, JSON, Data-Driven FSM |
 
-> 언리얼4 엔진 기반의 상용 게임 리소스를 활용해 C++/DirectX 11 기반의 환경에서 게임을 재구현 합니다.
+> 언리얼4 엔진 기반의 상용 게임을 레퍼런스로 삼아 C++/DirectX 11 기반의 환경에서 게임을 재구현 합니다.
+> 
 > PhysX 연동과 이를 활용한 물리 월드 구축과 래그돌 구현,
+> 
 > Data-Driven 방식의 FSM 툴 구현,
+> 
 > 이벤트 연동 방식의 애니메이션 툴 구현,
+> 
 > 몬스터/중간보스몬스터 구현,
+> 
 > 퀘스트/상호작용/대화 컨텐츠 시스템 구현을 담당했습니다.
 
 ## 기획 의도
@@ -60,9 +65,19 @@ toc_sticky: true
 	* NPC 및 오브젝트와 상호작용을 기반으로 대화와 퀘스트가 진행되는 콘텐츠의 흐름을 구현했습니다.
 	* 퀘스트 진입, 진행, 완료 상태를 관리하고, NPC 대화와, 상호작용, 조건 달성 결과에 따라 상태가 변경되도록 구현했습니다.
 
+## 프로젝트 영상
+
+{% include video id="YddyY0vfiFQ" provider="youtube" %}
+
 ## 구현 내용
 
 ### PhysX 물리 월드 및 충돌 이벤트 시스템
+
+- 핵심 기술 및 패턴
+
+	PhysX, Factory Pattern, Component 기반 구조, Custom Collision Filtering, Callback 기반 이벤트 처리  
+	
+	Actor와 Shape 생성 책임을 Factory로 분리하고, Collider/RigidBody를 컴포넌트로 구성해 PhysX 충돌 결과를 게임 오브젝트 이벤트로 전달했습니다.
 
 - 목적
 
@@ -123,11 +138,9 @@ flowchart TD
 	
 	또한 충돌 결과가 게임 오브젝트 이벤트로 전달되도록 구성하여, 물리 라이브러리와 실제 게임 콘텐츠 로직이 직접 결합되는 범위를 줄였습니다.
 
-![](assets/Pasted%20image%2020260617221651.png)
-![](assets/Pasted%20image%2020260617221651.png)
-
-- `[노란색 캡슐`] : 캐릭터 CCT
-- `[초록색 캡슐`] : 몬스터 CCT
+![](/assets/Pasted%20image%2020260617221651.png)
+- `[노란색 캡슐]` : 캐릭터 CCT
+- `[초록색 캡슐]` : 몬스터 CCT
 - `[빨간색 바닥]`: 지형 Static 메쉬
 
 ![](/assets/Pasted%20image%2020260617222113.png)
@@ -153,6 +166,12 @@ flowchart TD
 - 총(Gun)의 Raycast 무기 공격 판정을 게임 오브젝트로 넘겨주는 부분
 
 ### PhysX 기반 래그돌 시스템
+
+- 핵심 기술 및 패턴
+
+	PhysX Articulation, Skeletal Animation, Compute Shader, Physics–Animation Synchronization  
+	
+	캐릭터 본 계층을 PhysX Articulation Link와 Joint로 구성하고, 물리 시뮬레이션 결과를 본 로컬 행렬과 GPU 스키닝 과정에 반영했습니다.
 
 - 목적
 
@@ -224,7 +243,7 @@ sequenceDiagram
 - Awake 이전의 본 애니메이션이 수행한 Pelvis 본의 위치를 가져와 래그돌 Root 관절 위치에 셋팅한다.
 - 이전 래그돌 활성화 시 남아있던 물리 시뮬레이션이 있다면 초기화해주고 Articulation을 깨워 PhysX의 Scene에서 활동할 수 있게한다.
 
-![](assets/images/Pasted%20image%2020260619104530.png)
+![](/assets/images/Pasted%20image%2020260619104530.png)
 - PhysX 관절 월드 위치를 캐릭터 월드 공간으로 변환한다
 - 캐릭터 월드 공간으로 변환된 관절 위치를 각자의 부모 관절 공간으로 다시 변환한다
 - 컴퓨트 쉐이더에 전달하기 위한 GPU 버퍼에 보관
@@ -233,7 +252,217 @@ sequenceDiagram
 - 현재 한계 및 개선 방향
 	모델마다 공통된 처리를 위해 래그돌 대상 본 이름과 일부 Joint 설정값이 코드에 정의되어있습니다. 다시 구현한다면 본 매핑과 질량, 반지름, 관절 제한값을 외부 데이터로 캐릭터별 래그돌 설정을 툴에서 조정할 수 있도록 개선할 계획입니다.
 
+### 이벤트 기반 애니메이션 편집 툴 및 PhysX Overlap 바인딩
+
+- 핵심 기술 및 패턴
+
+	Event-Driven Architecture, Animation Notify, Observer 방식, Object Pool, PhysX Scene Query  
+	
+	툴에서 작성한 이벤트를 애니메이션 Notify에 바인딩하고, 공격 시점에 풀링된 Overlap 객체를 활성화해 PhysX 공격 판정으로 연결했습니다.
+
+- 목적
+
+	공격 판정, 이펙트, 사운드와 카메라 연출의 실행 시점을 애니메이션 코드에 직접 작성 할 경우, 애니메이션이나 타격 타이밍이 변경될 때마다 관련 코드를 함께 수정해야 했습니다.
+	
+	이를 개선하기 위해 애니메이션 클립의 특정 재생 위치에 이벤트를 배치하고, 이벤트 종류와 실행 데이터를 편집할 수 있는 ImGui 기반 애니메이션 이벤트 툴을 구현했습니다.
+	
+	또한 공격 판정용 Overlap Event를 툴에 추가하여, 애니메이션 이벤트가 PhysX 기반 Hitbox 판정과 실제 피격 처리까지 이어지도록 구성했습니다.
+
+---
+#### 애니메이션 이벤트 편집 툴
+
+애니메이션 클립 목록에서 편집할 애니메이션을 선택하고, 현재 재생 위치를 이동하며 타임라인에이벤트를 등록할 수 있도록 구성했습니다.
+
+지원한 이벤트 유형은 다음과 같습니다.
+- 공격 판정을 위한 Overlap Event
+- 이펙트 실행 이벤트
+- 사운드 재생 이벤트
+- 카메라 제어 이벤트
+
+각 이벤트는 공통적으로 다음 정보를 가집니다.
+- 이벤트가 실행될 애니메이션 재생 위치
+- 애니메이션 태그 및 인덱스
+- 이벤트 종류별 추가 데이터
+
+타임라인에서 이벤트를 드래그해 실행 위치를 변경할 수 있으며, 상세 편집 패널에서 이벤트별 설정값을 수정하도록 구현했습니다.
+
+이벤트 실행 위치는 프레임 번호가 아니라 `fStartTractPosition` 값으로 저장하여, 런타임 애니메이션 Nofity의 Track Position과 연결했습니다.
+
+![](/assets/images/Pasted%20image%2020260619144907.png)
+- `[좌측 상단`: 애니메이션 목록
+- `[좌측 하단]`: 이벤트 편집 패널
+- `[우측]`: 애니메이션 모델 목록
+- `[중앙 상단`]: 애니메이션 실행 정보
+- `[중앙]`: 애니메이션 프레임과 이벤트 정보
+- `[중앙 하단]`: 애니메이션과 이벤트 시각화(공격용 Overlap 시각화 예시)
+---
+#### 이벤트 데이터 저장 및 런타임 로드
+
+공통 이벤트 정보는 `ANIM_EVENT_BASE` 구조에 저장하고, 이벤트 종류에 따라 별도의 데이터 구조로 확장했습니다.
+
+Overlap Event는 `ATTTACKEVENT` 내부에 `HITBOX_DESC`를 포함하며, 툴에서 작성한 데이터는 JSON파일로 저장했습니다.
+
+공격 판정 데이터는 다음 경로에 몬스터별로 저장됩니다.
+
+`Resources/Data/AttackOverlapData/*.json`
+
+런타임에서는 저장된 JSON을 로드해 공격 Overlap 컴포넌트 Prototype을 생성하고, 해당 컴포넌트를 몬스터 또는 플레이어 객체에 추가하도록 구성했습니다.
+
+Effect, Sound, Camera Event도 동일한 타임라인 편집 구조를 사용하되 각각의 데이터 디렉터리와 런타임 처리 객체에 연결하도록 각 파트 담당자들에게 인계했습니다.
+
+![](/assets/images/Pasted%20image%2020260619145653.png)
+- 툴에서 설정한 애니메이션 실행 위치와 Hitbox 정보를 JSON으로 저장해 런타임 공격 판정에 사용했습니다.
+---
+#### Overlap Event 편집 기능
+
+Overlap Event의 상세 패널에서 다음 정보를 설정할 수 있도록 구현했습니다.
+- 이벤트 실행 위치
+- Hitbox 지속 시간
+- Box, Sphere, Capsule Shape
+- Shape 크기
+- 캐릭터 기준 위치 Offset
+- 공격 데이터에 사용할 AttackPreset
+- 충돌 Filter Layer와 Mask
+- 동일 공격의 최대 타격 횟수
+- 연속 판정 Tick Interval
+
+툴에서 설정한 `HITBOX_DESC`는 런타임에서 PhysX Geometry와 Query Filter, AttackPreset ID로 변환됩니다.
+
+별도의 Hitbix 회전값은 현재 구현에 포함되어있지 않으며, 월드상의 객체 Look과 HITBOX_DESC의 Offset을 기준으로 공격 영역을 배치했습니다.
+
+![](/assets/images/Pasted%20image%2020260619150746.png)
+![](/assets/images/Pasted%20image%2020260619150849.png)
+
+---
+#### 애니메이션 Notify 바인딩
+
+`CPhysicsAttackOverlap::Ready_OverlapInfo()`에서 로드한 Overlap Event를 런타임 공격 판정 정보로 변환했습니다.
+
+이 과정에서 다음 정보를 준비했습니다.
+- PhysX Geometry
+- 위치 Offset
+- 충돌 Filter 정보
+- AttackPreset ID
+- 이벤트 인덱스
+- Hitbox용 `AnimNotifyKey`
+
+생성한 `AnimNotifyKey`는 `CModelAnimation::Pushback_Nofifies()`를 통해 해당 애니메이션에 등록했습니다.
+
+애니메이션 재생 중 지정한 Track Positino에 도달하면 `CModel::Emit_Notifies()`가 Notify를 발생시키고, 이를 구독한 `CPhysicsAttackOverlap`이 해당 이벤트 인덱스의 공격 판정을 실행하도록 구성했습니다.
+
+- 처리 구조
+```mermaid
+flowchart TD
+	A["애니메이션 이벤트 툴"]
+	B["ATTACKEVENT / HITBOX_DESC"]
+	C["AttackOverlap JSON"]
+	D["런타임 데이터 로드"]
+	E["CPhysicsAttackOverlap"]
+	F["AnimNotifyKey 생성"]
+	G["CModelAnimation에 Notify 등록"]
+	H["애니메이션 재생 중 Notify 발생"]
+	
+	A --> B
+	B --> C
+	C --> D
+	D --> E
+	E --> F
+	F --> G
+	G --> H
+```
+
+---
+#### PhysX 공격 판정 연동
+
+Hitbox Notify가 발생하면 `CPhysicsAttackOverlap::CallbackEvent()`가 미리 준비한 `CActiveAttackOverlap`객체를 활성화합니다.
+
+`CActiveAttackOverlap`은 이벤트 데이터에 설정된 Shape, Offset과 Filter 정보를 이용해 PhysX Overlap 판정을 수행합니다.
+
+판정 결과는 다음 순서로 처리됩니다.
+
+애니메이션 Notify 발생
+-> `CPhysicsAttackOverlap` 이벤트 처리
+-> `CActiveAttackOverlap` 활성화
+-> PhysX Overlap 판정
+-> Physics Callback 처리
+-> COLLIDED_DESC 생성
+-> JudgementSystem wjsekf
+->`HIT_DESC` 생성
+-> 대상의 On_Hit 또는 Try_Attack 호출
+
+공격 판정에서는 다음 처리도 함께 수생했습니다.
+- 공격자 자신을 판정 대상에서 제외
+- Layer와 Mask를 이용한 피격 대상 필터링
+- 이미 판정된 대상의 중복 피격 확인
+- AttackPreset을 통한 공격 정보 조회
+- 피격 대상의 체력 감소와 피격 반응
+- Hit Effect와 Hit Sound 실행
+- Damage UI 표시
+- 피격 방향과 힘을 래그돌 Impulse에 전달
+
+- 실행 구조
+```mermaid
+sequenceDiagram
+	participant State as Monster State
+	participant Model as CModel
+	participant Overlap as CPhysicsAttackOverlap
+	participant Active as CActiveAttackOverlap
+	participant Physics as PhysX Overlap
+	participant Judge as CJudgementSystem
+	participant Target as Hit Target
+	
+	State->>Model: 공격 애니메이션 재생
+	Model->>Model: Notify 실행 위치 도달
+	Model-->>Overlap: Hitbox Notify 전달
+	Overlap->>Active: 공격 판정 활성화
+	Active->>Physics: Overlap 실행
+	Physics-->>Active: 판정 결과 반환
+	Active->>Judge: 충돌 정보 전달
+	Judge->>Target: HIT_DESC 전달
+	Target->>Target: 데미지 및 피격 처리
+```
+
+- 결과
+
+	애니메이션의 공격 타이밍과 실제 Hitbox 활성화 시점을 툴 데이터로 동기화할 수 있게 되었습니다.
+	
+	공격 판정과 이펙트, 사운드, 카메라 연출의 실행 시점을 몬스터 상태 코드에서 분리하여, 코드 수정 없이 타임라인 데이터를 조정하는 방식으로 콘텐츠를 수정할 수 있도록 했습니다.
+	
+	또한 애니메이션 툴의 공통 이벤트 구조에 Overlap Event를 추가하고, 다음 전체 흐름을 연결했습니다.
+	
+	툴 편집
+	-> JSON 저장
+	-> 런타임 데이터 로드
+	-> 애니메이션 Notify 바인딩
+	-> PhysX 공격 판정
+	-> 전투 판정 및 피격 처리
+	
+	이를 통해 애니메이션 이벤트 시스템이 단순 연출 실행에 그치지 않고, 물리 판정과 전투 로직까지 확장해서 연결할 수 있는 구조임을 검증했습니다.
+	
+	![](/assets/images/Pasted%20image%2020260619144907.png)
+	![](/assets/Pasted%20image%2020260617223702.png)
+	
+	![](/assets/images/Pasted%20image%2020260619153401.png)
+	![](/assets/images/Pasted%20image%2020260619153206.png)
+	- `CPhysicsAttackOverlap::Ready_OverlapInfo()`
+	- 투렝서 작성한 Hitbox 데이터를 PhysX Geometry와 Filter 정보로 변환하고, 해당 이벤트를 애니메이션 Notify에 등록합니다.
+	
+	![](/assets/images/Pasted%20image%2020260619153708.png)
+	- 활성화된 공격 영역에서 PhysX Overlap을 수행하고, 중복 판정을 확인한 뒤 전투 판정 시스템으로 충돌 결과를 전달했습니다.
+
+- 현재 한계 및 개선 방향
+
+	현재 Hitbox 위치는 Offset을 기준으로 설정하며, 별도의 회전값을 툴에서 편집하는 기능은 포함되어 있지 않습니다.
+	
+	다시 구현한다면 Hitbox 회전값 편집을 지원하고자합니다.
+
 ### Data-Driven 몬스터 FSM 편집 툴
+
+- 핵심 기술 및 패턴
+
+	Data-Driven Architecture, State Pattern, Function Registry, Weighted Random Transition, JSON 직렬화  
+	
+	상태와 전이 조건, 실행 Feature를 JSON으로 분리하고, 문자열 기반 Condition과 Feature를 런타임 Registry 함수에 바인딩했습니다.
 
 - 목적
 
@@ -300,50 +529,50 @@ flowchart TD
 ```
 
 - 결과
-![](assets/images/Pasted%20image%2020260619123206.png)
+![](/assets/images/Pasted%20image%2020260619123206.png)
 - 상태 편집 툴 전체 모습
 
-![](assets/images/Pasted%20image%2020260619123302.png)
+![](/assets/images/Pasted%20image%2020260619123302.png)
 - 상태 이름 입력 창과 추가 버튼
 - 상태 목록
 
-![](assets/images/Pasted%20image%2020260619123423.png)
-![](assets/images/Pasted%20image%2020260619123521.png)
+![](/assets/images/Pasted%20image%2020260619123423.png)
+![](/assets/images/Pasted%20image%2020260619123521.png)
 - 상태 상세 내용
 
-![](assets/images/Pasted%20image%2020260619123553.png)
+![](/assets/images/Pasted%20image%2020260619123553.png)
 - 선택한 상태의 애니메이션
 
-![](assets/images/Pasted%20image%2020260619123656.png)
+![](/assets/images/Pasted%20image%2020260619123656.png)
 - 전이 조건과 전이 대상
 
-![](assets/images/Pasted%20image%2020260619124138.png)
+![](/assets/images/Pasted%20image%2020260619124138.png)
 - 상태의 기본 수행 Feature
 
-![](assets/images/Pasted%20image%2020260619124208.png)
+![](/assets/images/Pasted%20image%2020260619124208.png)
 - 상태 진입 시(OnEnter) 한 번만 실행되는 Feature
 
-![](assets/images/Pasted%20image%2020260619124254.png)
+![](/assets/images/Pasted%20image%2020260619124254.png)
 - 상태 루프 중 조건에 따라 실행되는 Feature
 
-![](assets/images/Pasted%20image%2020260619124332.png)
+![](/assets/images/Pasted%20image%2020260619124332.png)
 - 상태 종료 시(OnExit) 한 번만 실행되는 Feature
 
-![](assets/images/Pasted%20image%2020260619124455.png)
+![](/assets/images/Pasted%20image%2020260619124455.png)
 - Condition과 Feature에 바인드되는 인수들
 - 시그니처는 통일됩니다.
 
-![](assets/images/Pasted%20image%2020260619125852.png)
+![](/assets/images/Pasted%20image%2020260619125852.png)
 - 전이 바인딩
 
-![](assets/images/Pasted%20image%2020260619131916.png)
+![](/assets/images/Pasted%20image%2020260619131916.png)
 - 전이 조건 확인 및 전이
 
-![](assets/images/Pasted%20image%2020260619130134.png)
-![](assets/images/Pasted%20image%2020260619130153.png)
+![](/assets/images/Pasted%20image%2020260619130134.png)
+![](/assets/images/Pasted%20image%2020260619130153.png)
 - Condition과 Feature를 공유하기 위해 일관된 시그니처로 미리 생성
 
-![](assets/images/Pasted%20image%2020260619130410.png)
+![](/assets/images/Pasted%20image%2020260619130410.png)
 - Key는 공통 문서로 관리
 - https://docs.google.com/spreadsheets/d/1tNnVP_l9EQnbn0V5kPBP3cwy_vDc7hO1qfvCKBPKW9Y/edit?usp=sharing
 
@@ -353,6 +582,12 @@ flowchart TD
 	다시 구현한다면 하나의 Registry 정의에서 기능, 조건 목록과 바인딩 정보를 함께 생성하고, 저장 단계에서 존재하지 않는 Condition과 Feature를 차단하도록 검증 기능을 강화할 계획입니다.
 
 ### 일반 몬스터 및 중간 보스 전투 구현
+
+- 핵심 기술 및 패턴
+
+	공통 베이스 클래스, Component 조합, Data-Driven AI, 재사용 가능한 전투 파이프라인  
+	
+	공통 몬스터 구조에 FSM, 이동, 공격 판정, 피격, 래그돌 컴포넌트를 조합하고, 몬스터별 데이터와 전용 기능으로 행동 차이를 구성했습니다.
 
 - 목적
 
@@ -423,14 +658,14 @@ sequenceDiagram
 	
 	또한 공격, 피격, 사망과 래그돌이 독립된 기능으로 끝나지 않고 하나의 전투 흐름 안에서 연결되도록 했습니다.
 
-![](assets/images/output.gif)
+![](/assets/images/output.gif)
 - Dog, Fly는 피격에 따라 래그돌 활성화
 - Boomer는 묵직한 피격 연출을 위해 래그돌을 활성화하지 않음
 
-![](assets/images/output%201.gif)
+![](/assets/images/output%201.gif)
 - Veteran의 돌진
 
-![](assets/images/output2.gif)
+![](/assets/images/output2.gif)
 - 원본 Veteran에는 없지만 자체적으로 추가한 연속 공격 패턴
 
 - 구조
@@ -451,6 +686,12 @@ stateDiagram-v2
 ```
 
 ### 대화/상호작용/퀘스트 콘텐츠 시스템
+
+- 핵심 기술 및 패턴
+
+	Event-Driven Architecture, Publish–Subscribe, Interface 기반 다형성, Scenario/Chapter 상태 관리  
+	
+	`IInteractable`, `IQuest` 인터페이스와 공통 이벤트를 통해 물리 감지, UI 입력, 대화, 퀘스트 진행 시스템을 느슨하게 연결했습니다.
 
 - 목적
 
@@ -481,9 +722,9 @@ stateDiagram-v2
 	- 오브젝트 상호작용
 	- 몬스터 웨이브 완료
 	
-	각 콘텐츠 객체는 `QUEST_NOTIFY`이벤트를 발행하고, CQuestManagerrk guswo Scenario와 Chapter에 전달합니다.
+	각 콘텐츠 객체는 `QUEST_NOTIFY`이벤트를 발행하고, CQuestManager가 현재 Scenario와 Chapter에 전달합니다.
 	
-	Chapter는 이벤트 종류와 대상 타입, 필요 횟수를 비교해 진행하도록 갱신하고, 완료 시 다음 Chapter 또는 Scenario로 전환되도록 했습니다.
+	Chapter는 이벤트 종류와 대상 타입, 필요 횟수를 비교해 진행하도록 갱신하고, 완료 시 다음 Chapter 또는 Scenario로 전환되도록 구성했습니다.
 
 - 구조
 ```mermaid
@@ -520,14 +761,14 @@ flowchart TD
 	
 	각 시스템이 서로의 구체적인 구현을 직접 참조하는 범위를 줄이고, 공통 이벤트와 인터페이스를 통해 연결되도록 구성했습니다.
 
-![](assets/images/output4.gif)
+![](/assets/images/output4.gif)
 - 상호작용 및 퀘스트 전환
 
-![](assets/images/output3%201.gif)
+![](/assets/images/output3%201.gif)
 - 대화 및 퀘스트 전환
 
-![](assets/images/Pasted%20image%2020260619141227.png)
-![](assets/images/Pasted%20image%2020260619141245.png)
+![](/assets/images/Pasted%20image%2020260619141227.png)
+![](/assets/images/Pasted%20image%2020260619141245.png)
 - 퀘스트/대화 문서 관리
 - https://docs.google.com/spreadsheets/d/1CGzyk6tjHByXM0LA-vXfRlovtc3Dpag1Fr7vBfB51BE/edit?usp=sharing
 
@@ -560,5 +801,5 @@ flowchart TD
   
 ## 관련 링크
 
-* 영상: https://www.youtube.com/watch?v=YddyY0vfiFQ
-* GitHub: https://github.com/Byungcoco/FinalProject
+* 영상: [영상](https://www.youtube.com/watch?v=YddyY0vfiFQ)
+* GitHub: [깃허브](https://github.com/Byungcoco/FinalProject)
