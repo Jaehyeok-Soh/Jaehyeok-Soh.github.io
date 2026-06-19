@@ -571,7 +571,7 @@ flowchart TD
 
 ![](/assets/images/Pasted%20image%2020260619130410.png)
 - Key는 공통 문서로 관리
-- https://docs.google.com/spreadsheets/d/1tNnVP_l9EQnbn0V5kPBP3cwy_vDc7hO1qfvCKBPKW9Y/edit?usp=sharing
+- [Condition/Feat Key 관리 문서 링크](https://docs.google.com/spreadsheets/d/1tNnVP_l9EQnbn0V5kPBP3cwy_vDc7hO1qfvCKBPKW9Y/edit?usp=sharing)
 
 - 현재 한계 및 개선 방향
 	현재 툴의 Condition, Feature 목록과 런타임 Factory Registry가 각각 수동으로 동기화되는 부분이 있습니다.
@@ -767,23 +767,13 @@ flowchart TD
 ![](/assets/images/Pasted%20image%2020260619141227.png)
 ![](/assets/images/Pasted%20image%2020260619141245.png)
 - 퀘스트/대화 문서 관리
-- https://docs.google.com/spreadsheets/d/1CGzyk6tjHByXM0LA-vXfRlovtc3Dpag1Fr7vBfB51BE/edit?usp=sharing
+- [퀘스트/대화 문서 링크](https://docs.google.com/spreadsheets/d/1CGzyk6tjHByXM0LA-vXfRlovtc3Dpag1Fr7vBfB51BE/edit?usp=sharing)
 
 - 현재 한계 및 개선 방향
 
 	대화 데이터와 일부 퀘스트 Scenario는 코드에 정의되어 있으며, 퀘스트 진행 상태의 저장/불러오기 기능은 구현하지 못했습니다.
 	
 	다시 구현한다면 대화 노드와 Scenario 정보를 외부 데이터로 분리하고, 퀘스트 상태를 저장/복원할 수 있는 직렬화 구조를 추가할 계획입니다.
-## 트러블슈팅
-### 문제
-
-### 원인
-* 어떻게 원인을 확인했는지
-* 실제 원인이 무엇이었는지
-### 해결
-* 어떤 방식으로 수정했는지
-* 왜 그 방식을 선택했는지
-* 수정 후 어떻게 검증했는지
 ## 결과 및 배운 점
 
 	PhysX 물리 월드와 래그돌 데이터 기반 FSM과 편집 툴, 몬스터 전투 및 퀘스트 콘텐츠를 하나의 플레이 흐름 안에서 연결했습니다.

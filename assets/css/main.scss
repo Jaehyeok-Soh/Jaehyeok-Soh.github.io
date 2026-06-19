@@ -5,20 +5,15 @@ search: false
 
 @charset "utf-8";
 
-/* 전체 사이트 최대 너비 */
-$max-width: 1600px;
+/* 사이트 전체 폭 */
+$max-width: 1800px;
 
-/* 우측 TOC 영역 너비 */
-$right-sidebar-width-narrow: 190px;
-$right-sidebar-width: 250px;
-$right-sidebar-width-wide: 300px;
+/* 우측 TOC가 본문을 너무 많이 차지하지 않도록 조정 */
+$right-sidebar-width-narrow: 180px;
+$right-sidebar-width: 220px;
+$right-sidebar-width-wide: 260px;
 
-/* 기존 테마 import */
 @import "minimal-mistakes/skins/default";
-@import "minimal-mistakes";
-
-/* 기존에 추가한 커스텀 CSS는 이 아래 */
-
 
 @import "minimal-mistakes/skins/{{ site.minimal_mistakes_skin | default: 'default' }}"; // skin
 @import "minimal-mistakes"; // main partials
