@@ -72,14 +72,14 @@ toc_sticky: true
 
 - 설계
 
-	CPhysics_Module이 PhysX Foundation, Physics Scene, Dispatcher와 CCT Manager의 생성 및 해제를 담당하도록 구현했습니다.
+	`CPhysics_Module`이 PhysX Foundation, Physics Scene, Dispatcher와 CCT Manager의 생성 및 해제를 담당하도록 구현했습니다.
 	
 	물리 객체의 종류에 따른 생성 책임은 다음과 같이 분리했습니다.
 	
-	- CPhysics_ActorFactory : Static, Dynamic, Kinematic Actor 생성
-	- CPhysics_ShapeFactory : Box, Sphere, Capsule, Mesh 생성
-	- CPhysics_FilterEventCallback : Contact, Trigger, Overlap, Raycast 결과를 게임 오브젝트 이벤트로 변환
-	- CPhysicsCollider, CPhysicsRigidBody : 게임 오브젝트와 PhysX 객체를 연결하는 컴포넌트
+	- `CPhysics_ActorFactory` : Static, Dynamic, Kinematic Actor 생성
+	- `CPhysics_ShapeFactory` : Box, Sphere, Capsule, Mesh 생성
+	- `CPhysics_FilterEventCallback` : Contact, Trigger, Overlap, Raycast 결과를 게임 오브젝트 이벤트로 변환
+	- `CPhysicsCollider`, `CPhysicsRigidBody` : 게임 오브젝트와 PhysX 객체를 연결하는 컴포넌트
 	
 	게임 오브젝트는 Collider와 RigidBody 설정 데이터를 전달하고, 팩토리는 해당 정보를 바탕으로 PhysX Shape와 Actor를 생성하도록 했습니다.
 	
@@ -87,11 +87,11 @@ toc_sticky: true
 
 - 구현 방식
 
-	게임 엔진 갱신 과정에서 CPhysics_Module::StepPhysics()를 호출하여 PhysX Scene의 simulate()와 fetchResults()를 수행했습니다.
+	게임 엔진 갱신 과정에서 `CPhysics_Module::StepPhysics()`를 호출하여 PhysX Scene의 `simulate()`와 `fetchResults()`를 수행했습니다.
 	
-	PhysX에서 발생한 충돌과 트리거 결과는 CPhysics_FilterEventCallback을 거쳐 CGameObject의 충돌 이벤트로 전달했습니다. 이를 통해 몬스터, NPC, 상호작용 오브젝트, TriggerBox와 공격 판정이 같은 물리 이벤트 흐름을 사용할 수 있도록 했습니다.
+	PhysX에서 발생한 충돌과 트리거 결과는 `CPhysics_FilterEventCallback`을 거쳐 `CGameObject`의 충돌 이벤트로 전달했습니다. 이를 통해 몬스터, NPC, 상호작용 오브젝트, TriggerBox와 공격 판정이 같은 물리 이벤트 흐름을 사용할 수 있도록 했습니다.
 	
-	공격 판정에서는 충돌 대상뿐 아니라 충돌 지점과 공격 프리셋 정보가 포함된 HIT_DESC를 전달하여, 데미지와 이펙트, 사운드, 피격 반응에서 공통으로 사용할 수 있도록 구성했습니다.
+	공격 판정에서는 충돌 대상뿐 아니라 충돌 지점과 공격 프리셋 정보가 포함된 `HIT_DESC`를 전달하여, 데미지와 이펙트, 사운드, 피격 반응에서 공통으로 사용할 수 있도록 구성했습니다.
 
 - 구조
 ```mermaid
@@ -124,6 +124,8 @@ flowchart TD
 	또한 충돌 결과가 게임 오브젝트 이벤트로 전달되도록 구성하여, 물리 라이브러리와 실제 게임 콘텐츠 로직이 직접 결합되는 범위를 줄였습니다.
 
 ![](assets/Pasted%20image%2020260617221651.png)
+![](assets/Pasted%20image%2020260617221651.png)
+
 - `[노란색 캡슐`] : 캐릭터 CCT
 - `[초록색 캡슐`] : 몬스터 CCT
 - `[빨간색 바닥]`: 지형 Static 메쉬
@@ -142,7 +144,7 @@ flowchart TD
 - PhysX 루프 중 물리 레이어와 마스크를 비교해 충돌 대상 선별 (FilterShader)
 
 ![](/assets/Pasted%20image%2020260617230114.png)
-- 선별된 충돌 이벤트를 OnCollisionEnter, OnCollision, OnCollisionExit 형태로 게임 오브젝트에 전달
+- 선별된 충돌 이벤트를 `OnCollisionEnter`, `OnCollision`, `OnCollisionExit` 형태로 게임 오브젝트에 전달
 
 ![](/assets/Pasted%20image%2020260617230236.png)
 - 공격용 Overlap 충돌 이벤트를 데미지, 공격자 정보와 함께 게임 오브젝트로 넘겨주는 부분
@@ -160,20 +162,20 @@ flowchart TD
 
 - 설계
 
-	CModel::Mapping_Ragdoll_Bone()에서 래그돌에 사용할 주요 본을 선별하고, 각 본의 부모/자식 관계와 초기 Transform 정보를 Ragdoll_Bone_Description 형태로 구성했습니다.
+	`CModel::Mapping_Ragdoll_Bone()`에서 래그돌에 사용할 주요 본을 선별하고, 각 본의 부모/자식 관계와 초기 Transform 정보를 `Ragdoll_Bone_Description` 형태로 구성했습니다.
 	
-	CPhysics_RagdollSystem은 해당 정보를 바탕으로 PxArticulationReducedCoordinate와 PxArticulationLink, Joint와 Capsule Shape를 생성하도록 했습니다.
+	`CPhysics_RagdollSystem`은 해당 정보를 바탕으로 `PxArticulationReducedCoordinate`와 `PxArticulationLink`, Joint와 Capsule Shape를 생성하도록 했습니다.
 	
 	런타임에서는 다음과 같이 책임을 분리했습니다.
-	- CPhysics_RagdollSystem : 래그돌 생성, 등록, 활성화 요청과 상태 전환 관리
-	- CPhysicsRagdoll : PhysX Link와 모델 본의 Transform 동기화
-	- CMonsterControlContext : 몬스터 FSM에서 래그돌 활성화 요청
-	- CModel : 래그돌 결과를 최종 본 Transform에 반영
-	- ComShader_RagDoll : 래그돌 Transform을 GPU 애니메이션 처리 과정에 반영
+	- `CPhysics_RagdollSystem` : 래그돌 생성, 등록, 활성화 요청과 상태 전환 관리
+	- `CPhysicsRagdoll` : PhysX Link와 모델 본의 Transform 동기화
+	- `CMonsterControlContext` : 몬스터 FSM에서 래그돌 활성화 요청
+	- `CModel` : 래그돌 결과를 최종 본 Transform에 반영
+	- `ComShader_RagDoll` : 래그돌 Transform을 GPU 애니메이션 처리 과정에 반영
 
 - 구현 방식
 
-	몬스터 FSM의 사망 상타에서 래그돌 활성화 Feature를 실행하면, CMonsterControlContext가 래그돌 시스템에 활성화를 요청하도록 구성했습니다.
+	몬스터 FSM의 사망 상타에서 래그돌 활성화 Feature를 실행하면, `CMonsterControlContext`가 래그돌 시스템에 활성화를 요청하도록 구성했습니다.
 	
 	활성화 시점에는 현재 애니메이션의 본 Pose를 기준으로 PhysX Articulation을 배치한 뒤 Scene에 추가하고 물리 시뮬레이션을 시작했습니다.
 	
@@ -182,6 +184,7 @@ flowchart TD
 	피격 방향와 힘을 Impulse로 전달하여, 공격이 들어온 방향에 따라 몬스터가 서로 다른 방향으로 밀리도록 했습니다.
 
 - 구조
+	- 래그돌 전환 흐름
 ```mermaid
 sequenceDiagram
     participant Monster as "[담당 구현 영역] CMonster_Base"
@@ -221,15 +224,318 @@ sequenceDiagram
 - Awake 이전의 본 애니메이션이 수행한 Pelvis 본의 위치를 가져와 래그돌 Root 관절 위치에 셋팅한다.
 - 이전 래그돌 활성화 시 남아있던 물리 시뮬레이션이 있다면 초기화해주고 Articulation을 깨워 PhysX의 Scene에서 활동할 수 있게한다.
 
-### 구현내용상세
+![](assets/images/Pasted%20image%2020260619104530.png)
+- PhysX 관절 월드 위치를 캐릭터 월드 공간으로 변환한다
+- 캐릭터 월드 공간으로 변환된 관절 위치를 각자의 부모 관절 공간으로 다시 변환한다
+- 컴퓨트 쉐이더에 전달하기 위한 GPU 버퍼에 보관
+- 최종 위치와 회전을 CCT에 동기화
+
+- 현재 한계 및 개선 방향
+	모델마다 공통된 처리를 위해 래그돌 대상 본 이름과 일부 Joint 설정값이 코드에 정의되어있습니다. 다시 구현한다면 본 매핑과 질량, 반지름, 관절 제한값을 외부 데이터로 캐릭터별 래그돌 설정을 툴에서 조정할 수 있도록 개선할 계획입니다.
+
+### Data-Driven 몬스터 FSM 편집 툴
 
 - 목적
-- 설계
-- 구현 방식
+
+	몬스터 상태와 전이 조건이 C++ 코드에 직접 작성되어 있으면 패턴을 변경하거나 새로운 몬스터를 추가할 때마다 코드 수정과 재빌드가 필요합니다.
+	
+	이를 개선하기 위해 상태, 애니메이션, 전이 조건과 상태별 실행 기능을 JSON 데이터로 구성하고, 해당 데이터를 편집할 수 있는 FSM 툴과 런타임 시스템을 구현했습니다.
+
+- 데이터 구조
+
+	FSM 데이터에는 다음 정보를 저장했습니다.
+	- 상태 이름
+	- 상태에서 재생할 애니메이션
+	- 상태 시작/갱신/종료 시 실행할 Feature
+	- 전이 조건
+	- 전이 대상 상태
+	- 랜덤 전이 대상과 가중치
+	- 전역 전이와 지역 전이 정보
+
+상태의 실행 흐름과 전이 관계는 데이터로 저장하고, 실제 조건 판정과 기능 실행 코드는 `CMonsterState_Factory` 에 등록하도록 구성했습니다.
+
+- 편집 툴
+	ImGui 기반에서 다음 항목을 편집할 수 있도록 했습니다.
+	
+	- 상태 추가 및 삭제
+	- 상태 별 애니메이션 설정
+	- 상태 시작/갱신/종료 Feature 설정
+	- 전이 조건 설정
+	- 전이 대상 상태 설정
+	- 랜덤 전이 대상과 가중치 설정
+	- JSON 저장 및 불러오기
+
+툴에서 작성한 데이터는 엔진의 문서 시스템을 통해 JSON으로 저장했습니다.
+
+- 런타임 적용
+
+	`CMonsterActionState`가 몬스터별 JSON 파일을 로드하여 상태 객체를 구성하고, `CStateBase_Monster`가 데이터에 기록된 문자열 Condition과 Feature를 Factory에 등록된 함수에 연결하도록 했습니다.
+	
+	몬스터 갱신 시 현재 상태의 기능을 실행하고, 전역 및 지역 전이 조건을 검사하여 다음 상태로 전환하도록 구성했습니다.
+	
+	일반 몬스터와 중간 보스, 지역 보스가 동일한 FSM 데이터 구조를 공유하고, 개별 몬스터는 서로 다른 JSON 데이터와 필요한 전용 기능을 조합해 행동 차이를 구성했습니다.
+
 - 구조
+	- Data-Driven FSM 데이터 적용 흐름
+```mermaid
+flowchart TD
+	A["CPanel_State"]
+	B["MONSTERSTATE_DESC"]
+	C["MonsterState JSON"]
+	D["CDataDocument_MonsterState"]
+	E["CMonsterActionState::LoadStateFile()"]
+	F["CStateBase_Monster"]
+	G["CMonsterState_Factory"]
+	H["Condition / Feature 바인딩"]
+	I["상태 실행 및 전이 검사"]
+	
+	A --> B
+	B --> C
+	C --> D
+	D --> E
+	E --> F
+	F --> G
+	G --> H
+	H --> I
+```
+
+- 결과
+![](assets/images/Pasted%20image%2020260619123206.png)
+- 상태 편집 툴 전체 모습
+
+![](assets/images/Pasted%20image%2020260619123302.png)
+- 상태 이름 입력 창과 추가 버튼
+- 상태 목록
+
+![](assets/images/Pasted%20image%2020260619123423.png)
+![](assets/images/Pasted%20image%2020260619123521.png)
+- 상태 상세 내용
+
+![](assets/images/Pasted%20image%2020260619123553.png)
+- 선택한 상태의 애니메이션
+
+![](assets/images/Pasted%20image%2020260619123656.png)
+- 전이 조건과 전이 대상
+
+![](assets/images/Pasted%20image%2020260619124138.png)
+- 상태의 기본 수행 Feature
+
+![](assets/images/Pasted%20image%2020260619124208.png)
+- 상태 진입 시(OnEnter) 한 번만 실행되는 Feature
+
+![](assets/images/Pasted%20image%2020260619124254.png)
+- 상태 루프 중 조건에 따라 실행되는 Feature
+
+![](assets/images/Pasted%20image%2020260619124332.png)
+- 상태 종료 시(OnExit) 한 번만 실행되는 Feature
+
+![](assets/images/Pasted%20image%2020260619124455.png)
+- Condition과 Feature에 바인드되는 인수들
+- 시그니처는 통일됩니다.
+
+![](assets/images/Pasted%20image%2020260619125852.png)
+- 전이 바인딩
+
+![](assets/images/Pasted%20image%2020260619131916.png)
+- 전이 조건 확인 및 전이
+
+![](assets/images/Pasted%20image%2020260619130134.png)
+![](assets/images/Pasted%20image%2020260619130153.png)
+- Condition과 Feature를 공유하기 위해 일관된 시그니처로 미리 생성
+
+![](assets/images/Pasted%20image%2020260619130410.png)
+- Key는 공통 문서로 관리
+- https://docs.google.com/spreadsheets/d/1tNnVP_l9EQnbn0V5kPBP3cwy_vDc7hO1qfvCKBPKW9Y/edit?usp=sharing
+
+- 현재 한계 및 개선 방향
+	현재 툴의 Condition, Feature 목록과 런타임 Factory Registry가 각각 수동으로 동기화되는 부분이 있습니다.
+	
+	다시 구현한다면 하나의 Registry 정의에서 기능, 조건 목록과 바인딩 정보를 함께 생성하고, 저장 단계에서 존재하지 않는 Condition과 Feature를 차단하도록 검증 기능을 강화할 계획입니다.
+
+### 일반 몬스터 및 중간 보스 전투 구현
+
+- 목적
+
+	구현한 FSM, 물리 시스템, 공격 판정과 래그돌을 실제 전투 콘텐츠에 적용하여 시스템의 재사용성과 확장 가능성을 검증했습니다.
+
+- 공통 몬스터 구조
+
+	`CMonster_Base`에서 몬스터의 공통 생명주기와 전투 흐름을 처리하고, 다음 구성 요소를 조합하도록 했습니다.
+	- `CMonsterActionState`: 데이터 기반 FSM
+	- `CMonsterControlContext`: 타깃 방향, 이동, 공격 거리, 피격 및 래그돌 상태 관리
+	- CPhysicsAttackOverlap : 공격 판정
+	- CCT : 이동과 지형 충돌
+	
+	개별 몬스터 클래스는 모델, 능력치 CCT 설정, 사용할 FSM 데이터와 스킬/사운드 데이터를 지정하고, 실제 상태 전이와 행동 흐름은 공통 FSM 시스템을 사용하도록 구성했습니다.
+
+- 일반 몬스터
+
+	Dog, Boomer, Fly 몬스터가 동일한 기본 구조를 공유하면서 서로 다른 FSM JSON과 공격 데이터를 사용하도록 했습니다.
+	
+	이를 통해 근접 추격형, 스킬 사용형, 비행형 몬스터의 행동 차이를 공통 코드 수정이 아니라 데이터와 개별 설정의 조합으로 구성했습니다.
+
+- 중간 보스
+
+	중간 보스 Veteran은 일반 몬스터 구조를 확장하여 다음 기능을 추가했습니다.
+	- 근접 연속 공격
+	- 돌진
+	- 점프 공격
+	- 포효 및 충격파
+	- 내려찍기
+	- 방향 전환 상태
+	- 카메라 이벤트
+	- 보스 전용 스킬 생성
+	
+	일반 모스터와 같은 FSM 실행 구조를 사용하면서 더 많은 상태와 조건, 연출 기능을 조합해 복잡한 전투 패턴을 구성했습니다.
+
+- 애니메이션과 공격 판정 연동
+
+	공격 상태에 진입하면 공격 애니메이션을 재생하고, 애니메이션 Notify 시점에 `CPhysicsAttackOverlap`을 활성화하도록 했습니다.
+	
+	활성화된 공격 영역은 PhysX Overalp 판정을 수행하고, 충돌 결과를 `HIT_DESC`로 변환하여 대상의 피격 처리로 전달했습니다.
+	
+	이 구조를 통해 애니메이션의 타격 시점과 실제 판정 발생 시점을 동기화하고, 공격 범위와 전투 수치를 데이터로 관리할 수 있도록 했습니다.
+
+- 구조
+	- 몬스터 공격과 애니메이션 이벤트 연동 흐름
+```mermaid
+sequenceDiagram
+    participant FSM as "[담당 구현 영역] CStateBase_Monster"
+    participant Model as "[담당 구현 영역] CModel / CModelAnimation"
+    participant Overlap as "[담당 구현 영역] CPhysicsAttackOverlap"
+    participant Active as "[담당 구현 영역] CActiveAttackOverlap"
+    participant Physics as "[담당 구현 영역] CPhysics_Module"
+    participant Callback as "[담당 구현 영역] CPhysics_FilterEventCallback"
+    participant Target as "[팀 공통 영역] CGameObject::On_Hit / Try_Attack"
+
+    FSM->>Model: 공격 상태 애니메이션 재생
+    Model->>Overlap: OnNotify(EAnimNotifyId::Hitbox)
+    Overlap->>Active: ActiveAttackOverlap::Set()
+    Active->>Physics: Overlap_EventCallback()
+    Physics->>Callback: ProcessOverlap()
+    Callback->>Target: HIT_DESC 전달
+    Target->>Target: On_Hit() / Try_Attack()
+```
+
 - 결과
 
+	일반 몬스터와 중간 보스가 공통 전투 구조를 재사용하면서, FSM 데이터와 전용 스킬, 연출 구성에 따라 서로 다른 행동 패턴을 수행하도록 구현했습니다.
+	
+	또한 공격, 피격, 사망과 래그돌이 독립된 기능으로 끝나지 않고 하나의 전투 흐름 안에서 연결되도록 했습니다.
 
+![](assets/images/output.gif)
+- Dog, Fly는 피격에 따라 래그돌 활성화
+- Boomer는 묵직한 피격 연출을 위해 래그돌을 활성화하지 않음
+
+![](assets/images/output%201.gif)
+- Veteran의 돌진
+
+![](assets/images/output2.gif)
+- 원본 Veteran에는 없지만 자체적으로 추가한 연속 공격 패턴
+
+- 구조
+	- 몬스터 FSM 상태 전이 예시
+```mermaid
+stateDiagram-v2
+	[*] --> Idle
+	Idle --> Chase: 타깃 발견
+	Chase --> Attack: 근접 공격 범위
+	Chase --> Skill: 스킬 공격 범위
+	Attack --> Chase: 애니메이션 종료
+	Skill --> Chase: 애니메이션 종료
+	Chase --> Hit: 피격 래그돌 활성화
+	Hit --> Chase: 피격 래그돌 활성화 종료
+	Chase --> Die: 사망 조건
+	Die --> Ragdoll: 래그돌 활성화
+	Ragdoll --> [*]
+```
+
+### 대화/상호작용/퀘스트 콘텐츠 시스템
+
+- 목적
+
+	NPC 대화, 오브젝트, 상호작용과 퀘스트 진행이 각각 독립적으로 동작하는 것이 아니라, 플레이어의 행동에 따라 하나의 콘텐츠 흐름으로 이어지도록 구현했습니다.
+
+- 상호작용 감지
+
+	플레이어에 상호작용 감지용 PhysX Trigger Collider를 구성하고, NPC 또는 상호작용 오브젝트가 감지 범위에 들어오면 `INTERACT_DETECT` 이벤트를 전달하도록 했습니다.
+	
+	UI는 감지된 대상을 저장하고 상호작용 안내를 표시합니다. 플레이어가 상호작용 키를 입력하면 `INTERACT_ENTER` 이벤트를 통해 대상의 `IInteractable::Interact()`를 호출하도록 구성했습니다.
+	
+	이를 통해 NPC, 무기 획득 오브젝트와 레벨 이동 오브젝트가 공통 인터페이스를 사용 하도록 했습니다.
+
+- 대화 시스템
+
+	`CDialogueManager`가 대화 노드를 ID로 관리하고, 대화 시작/다음 문장/종료 이벤트를 처리하도록 했습니다.
+	
+	대화 시작 시 UI가 현재 대화 노드를 읽어 텍스트를 출력하고, 플레이어는 대화 전용 상태로 전환되어 일반 조작이 제한되도록 했습니다.
+
+- 퀘스트 시스템
+
+	퀘스트는 Scenario와 Chapter 구조로 구성했습니다.
+	
+	현재 Chapter는 다음과 같은 이벤트를 기준으로 진행도를 갱신합니다.
+	- 몬스터 처치
+	- NPC 대화
+	- 지역 진입 및 이탈
+	- 오브젝트 상호작용
+	- 몬스터 웨이브 완료
+	
+	각 콘텐츠 객체는 `QUEST_NOTIFY`이벤트를 발행하고, CQuestManagerrk guswo Scenario와 Chapter에 전달합니다.
+	
+	Chapter는 이벤트 종류와 대상 타입, 필요 횟수를 비교해 진행하도록 갱신하고, 완료 시 다음 Chapter 또는 Scenario로 전환되도록 했습니다.
+
+- 구조
+```mermaid
+flowchart TD
+	A["플레이어 상호작용 Collider"]
+	B["PhysX Trigger"]
+	C["NPC / Interactive Object"]
+	D["INTERACT_DETECT"]
+	E["상호작용 UI"]
+	F["INTERACT_ENTER"]
+	G["IInteractable::Interact()"]
+	H["DialogueManager"]
+	I["IQuest::CallQuestEvent()"]
+	J["QUEST_NOTIFY"]
+	K["QuestManager"]
+	L["Chapter 진행도 변경"]
+	
+	A --> B
+	B --> C
+	C --> D
+	D --> E
+	E --> F
+	F --> G
+	G --> H
+	G --> I
+	I --> J
+	J --> K
+	K --> L
+```
+
+- 결과
+
+	물리 Trigger, UI, 입력, 대화와 퀘스트 시스템을 이벤트 중심으로 연결하여 NPC 대화와 오브젝트 상호작용, 몬스터 처치가 동일한 퀘스트 진행 흐름에 반영되도록 구현했습니다.
+	
+	각 시스템이 서로의 구체적인 구현을 직접 참조하는 범위를 줄이고, 공통 이벤트와 인터페이스를 통해 연결되도록 구성했습니다.
+
+![](assets/images/output4.gif)
+- 상호작용 및 퀘스트 전환
+
+![](assets/images/output3%201.gif)
+- 대화 및 퀘스트 전환
+
+![](assets/images/Pasted%20image%2020260619141227.png)
+![](assets/images/Pasted%20image%2020260619141245.png)
+- 퀘스트/대화 문서 관리
+- https://docs.google.com/spreadsheets/d/1CGzyk6tjHByXM0LA-vXfRlovtc3Dpag1Fr7vBfB51BE/edit?usp=sharing
+
+- 현재 한계 및 개선 방향
+
+	대화 데이터와 일부 퀘스트 Scenario는 코드에 정의되어 있으며, 퀘스트 진행 상태의 저장/불러오기 기능은 구현하지 못했습니다.
+	
+	다시 구현한다면 대화 노드와 Scenario 정보를 외부 데이터로 분리하고, 퀘스트 상태를 저장/복원할 수 있는 직렬화 구조를 추가할 계획입니다.
 ## 트러블슈팅
 ### 문제
 
@@ -241,14 +547,18 @@ sequenceDiagram
 * 왜 그 방식을 선택했는지
 * 수정 후 어떻게 검증했는지
 ## 결과 및 배운 점
-* 완성한 기능
-* 기술적으로 배운 점
-* 현재 한계
-* 다시 구현한다면 개선할 부분
 
+	PhysX 물리 월드와 래그돌 데이터 기반 FSM과 편집 툴, 몬스터 전투 및 퀘스트 콘텐츠를 하나의 플레이 흐름 안에서 연결했습니다.
+	
+	이 과정에서 외부 라이브러리를 단순히 호출하는 것에 그치지 않고, 게임 오브젝트와 물리 객체의 수명 및 이벤트 흐름을 통합하는 방법을 경험했습니다.
+	
+	또한 몬스터 상태와 전이 조건을 데이터로 분리하고, 제작 툴에서 작성한 데이터가 런타임 행동으로 이어지는 파이프라인을 구현하며 코드와 콘텐츠 데이터의 책임을 분리하는 방법을 학습했습니다.
+	
+	대화, 상호작용, 전투와 퀘스트 상태를 연결하면서 게임에서 발생하는 이벤트와 상태 전이가 여러 시스템 사이에서 어떻게 전달되고 관리되는지 이해할 수 있었습니다.
+	
+	이러한 경험을 바탕으로, 멀티플레이 환경에서 서버가 관리해야 하는 게임 상태와 클라이언트가 표현해야 하는 상태를 구분하고, 몬스터 AI와 퀘스트 진행 상태를 서버 중심 구조로 확장하는 기반을 마련했습니다.
+  
 ## 관련 링크
 
-* 영상:
-* GitHub:
-* 실행 페이지:
-* 다운로드:
+* 영상: https://www.youtube.com/watch?v=YddyY0vfiFQ
+* GitHub: https://github.com/Byungcoco/FinalProject

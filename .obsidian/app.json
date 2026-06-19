@@ -6,7 +6,7 @@
     "margin": "1",
     "downscalePercent": 100
   },
-  "attachmentFolderPath": "assets",
+  "attachmentFolderPath": "assets/images",
   "newLinkFormat": "absolute",
   "useMarkdownLinks": true
 }
