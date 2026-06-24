@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "_posts/2026-06-24-elden-ring-udp-sync.md",
+                "file": "_portfolio/elden-ring-recreate.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "2026-06-24-elden-ring-udp-sync"
+              "title": "elden-ring-recreate"
             }
           }
         ]
@@ -154,13 +154,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "_posts/2026-06-24-elden-ring-udp-sync.md",
+                "file": "_portfolio/elden-ring-recreate.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "2026-06-24-elden-ring-udp-sync 의 개요"
+              "title": "elden-ring-recreate 의 개요"
             }
           },
           {
@@ -195,12 +195,12 @@
   },
   "active": "f3c71711742410ee",
   "lastOpenFiles": [
+    "_posts/2026-06-24-elden-ring-udp-sync.md",
     "_posts/2026-06-24-elden-ring-network-auth.md",
     "_posts/2026-06-24-elden-ring-level-pipeline.md",
     "_posts/2026-06-24-elden-ring-animation-root-motion.md",
     "Untitled.md",
     "{{.md",
-    "_posts/2026-06-24-elden-ring-udp-sync.md",
     "_portfolio/elden-ring-recreate.md",
     "_posts/2026-06-24-elden-ring-packet-bad-alloc.md",
     "_posts/elden-ring-recreate-level-pipeline.md",
