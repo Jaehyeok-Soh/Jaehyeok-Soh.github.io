@@ -232,7 +232,7 @@ Portfolio
    Portfolio page width
    ========================================================= */
 
-/*@media (min-width: 1024px) {
+@media (min-width: 1024px) {
     body.portfolio-page #main {
         width: 100%;
         max-width: 1520px;
@@ -246,29 +246,7 @@ Portfolio
         padding-right: 0;
     }
 
-    body.portfolio-page .page__inner-wrap,
-    body.portfolio-page .page__content {
-        width: 100%;
-        max-width: none;
-    }
-}*/
-
-@media (min-width: 1024px) {
-    #main {
-        width: 100%;
-        max-width: 1520px;
-        padding-right: 2.5rem;
-        padding-left: 2.5rem;
-    }
-
-    .page {
-        float: none;
-        width: 100%;
-        padding-right: 0;
-    }
-
-    .page__inner-wrap,
-    .page__content {
+    body.portfolio-page .page__inner-wrap, body.portfolio-page .page__content {
         width: 100%;
         max-width: none;
     }

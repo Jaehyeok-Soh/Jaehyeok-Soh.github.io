@@ -85,6 +85,8 @@ if (tags.length > 0) {
 ---
 title: "<% tp.file.title %>"
 date: <% tp.date.now("YYYY-MM-DD") %>
+layout: single  
+permalink:
 category: <% category %>
 project: <% project %>
 tags: <% tagsYaml %>
