@@ -116,6 +116,41 @@ PLAYERINFO_AGENT
 
 ---
 
+```csharp
+[HttpPost("Login")]
+public string Login([FromBody] LoginModel model)
+{
+    var secret = model.Secret.ToHashString();
+    var user = MongoContext.User.AsQueryable().SingleOrDefault(a => a.Identity == model.Identity);
+    var auth = MongoContext.UserAuthentication.AsQueryable()
+        .Where(a => !a.DeletedTime.HasValue)
+        .SingleOrDefault(a => a.Value == secret);
+
+    if (auth == null || auth.User.Identity != model.Identity || auth.User.DeletedTime.HasValue)
+    {
+        throw new BadRequestException();
+    }
+
+    auth.LastTriedTime = DateTime.UtcNow;
+    auth.User.LastTriedTime = DateTime.UtcNow;
+
+    if (model.Session != null)
+    {
+        auth.User.UserSession.Add(new DataBases.Models.UserSession()
+        {
+            UserAgent = model.Session.UserAgent,
+            CreatedTime = DateTime.UtcNow,
+            UpdatedTime = DateTime.UtcNow,
+        });
+    }
+
+    return TokenService.GenerateToken(auth.User);
+}
+```
+로그인 요청은 HTTP API에서 처리하고, 서버는 저장된 인증 해시와 사용자 식별자를 검증한 뒤 JWT를 발급합니다. 클라이언트는 이 JWT를 보관하고 TCP 세션 CREATE/JOIN 패킷에 포함해 게임 세션 입장 인증에 재사용합니다.
+
+---
+
 ## TCP 패킷 설계
 
 TCP 세션 패킷은 다음 필드를 포함합니다.

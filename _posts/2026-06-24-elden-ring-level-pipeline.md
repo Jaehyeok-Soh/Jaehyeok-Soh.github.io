@@ -208,6 +208,53 @@ Monster 데이터
 
 ---
 
+```cpp
+void CImGuiMap::SaveLevel()
+{
+	struct tagLevelSaveRequest saveRequest {};
+	saveRequest.levelIndex = m_tLevelInfo.levelIndex;
+	saveRequest.mapList = m_tLevelInfo.mapList;
+	saveRequest.objectList = m_tLevelInfo.objectList;
+	saveRequest.monsterList = m_tLevelInfo.monsterList;
+
+	m_pGameInstance->GetAdminEndpoint()->GetToolEndpoint()->LevelSave(saveRequest);
+}
+
+void CImGuiMap::LoadLevel()
+{
+	struct tagLevelSaveRequest loadResult {};
+
+	future<httplib::Result> future = m_pGameInstance->GetAdminEndpoint()->GetToolEndpoint()->LevelLoad(m_iLevelIndexCurrentFocus);
+	httplib::Result result = future.get();
+
+	if (result->status != 200)
+		return;
+
+	m_pGameInstance->ResultBodyDeserialize(loadResult, result->status, result->body);
+
+	m_tLevelInfo.levelIndex = loadResult.levelIndex;
+
+	m_tLevelInfo.mapList.clear();
+	m_tLevelInfo.mapList.reserve(0);
+	for (auto map : loadResult.mapList)
+		SetLoadedMap(map);
+
+	m_tLevelInfo.objectList.clear();
+	m_tLevelInfo.objectList.reserve(0);
+	for (auto object : loadResult.objectList)
+		SetLoadedObject(object);
+
+	m_tLevelInfo.monsterList.clear();
+	m_tLevelInfo.monsterList.reserve(0);
+	for (auto monster : loadResult.monsterList)
+		SetLoadedMonster(monster);
+}
+```
+
+ResourceTool에서 배치한 Map/Object/Monster 목록을 `tagLevelSaveRequest`로 구성해 서버의 Level API로 전달했습니다. 로드 시에는 서버 응답을 같은 DTO로 역직렬화하고, 기존 컨테이너를 비운 뒤 각 타입별 생성 함수로 분기해 에디터 상태를 복원했습니다.
+
+---
+
 ## 구현 시 고려한 점
 
 ### 1. Tool DTO와 Client DTO의 계약 일치

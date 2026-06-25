@@ -253,6 +253,48 @@ flowchart LR
 
 ---
 
+```cpp
+void CStateMove::RootMotion(_float fTimeDelta)
+{
+	auto modelObj = m_pOwner->Find_PartObject(L"Part_Body");
+	auto RootBoneName = modelObj->GetModel()->GetBoneByIndex(2)->GetName();
+
+	auto animation = modelObj->GetModel()->GetAnimationByIndex(m_iAnimIndex);
+	auto keyFrame = animation->GetKeyframe(RootBoneName);
+	auto keyFrameSize = keyFrame->GetTransforms().size();
+	auto currFrame = modelObj->GetAnimator()->GetCurFrame();
+
+	if (currFrame == 0 || keyFrameSize - 1 < currFrame)
+		return;
+
+	auto beforeTransform = keyFrame->GetTransform(currFrame - 1);
+	auto currentTransform = keyFrame->GetTransform(currFrame);
+
+	_vector distance = XMVectorSubtract(XMLoadFloat3(&currentTransform.m_vTranslation), XMLoadFloat3(&beforeTransform.m_vTranslation));
+
+	_vector ownerPosition = m_pOwner->GetTransform().Get_State(STATE::POSITION);
+
+	float localRight = currentTransform.m_vTranslation.x - beforeTransform.m_vTranslation.x;
+	float localUp = currentTransform.m_vTranslation.y - beforeTransform.m_vTranslation.y;
+	float localForward = currentTransform.m_vTranslation.z - beforeTransform.m_vTranslation.z;
+
+	_vector ownerPos = m_pOwner->GetTransform().Get_State(STATE::POSITION);
+	_vector ownerRight = XMVector3Normalize(m_pOwner->GetTransform().Get_State(STATE::RIGHT));
+	_vector ownerUp = XMVector3Normalize(m_pOwner->GetTransform().Get_State(STATE::UP));
+	_vector ownerLook = XMVector3Normalize(m_pOwner->GetTransform().Get_State(STATE::LOOK));
+
+	_vector moveDistance = ownerRight * localRight + ownerUp * localUp + ownerLook * localForward;
+
+	_vector destPos = XMVectorAdd(ownerPos, moveDistance);
+
+	if (m_pOwner->GetNavigation()->isMove(destPos))
+		m_pOwner->GetTransform().Set_State(STATE::POSITION, destPos);
+}
+```
+이동 애니메이션의 root bone translation 차이를 프레임 단위로 계산하고, 이를 캐릭터의 월드 right/up/look 축에 투영해 실제 이동량으로 변환했습니다. 최종 위치는 Navigation의 이동 가능 검사 후 적용해 애니메이션 기반 이동과 충돌 처리를 연결했습니다.
+
+---
+
 ## FSM과 애니메이션 연결
 
 플레이어 FSM은 입력과 현재 상태에 따라 애니메이션을 선택합니다.
