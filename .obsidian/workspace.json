@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "_portfolio/duet-night-abyss-recreate.md",
+                "file": "_portfolio/elden-ring-recreate.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "duet-night-abyss-recreate"
+              "title": "elden-ring-recreate"
             }
           }
         ]
@@ -28,13 +28,17 @@
         "type": "tabs",
         "children": [
           {
-            "id": "84bbb6fa9f9b1c0d",
+            "id": "d367a81f281ad631",
             "type": "leaf",
             "state": {
-              "type": "empty",
-              "state": {},
+              "type": "markdown",
+              "state": {
+                "file": "_posts/2026-06-25-duet-night-abyss-monster-fsm.md",
+                "mode": "source",
+                "source": false
+              },
               "icon": "lucide-file",
-              "title": "새 탭"
+              "title": "2026-06-25-duet-night-abyss-monster-fsm"
             }
           }
         ]
@@ -170,13 +174,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "_portfolio/duet-night-abyss-recreate.md",
+                "file": "_portfolio/elden-ring-recreate.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "duet-night-abyss-recreate 의 개요"
+              "title": "elden-ring-recreate 의 개요"
             }
           },
           {
@@ -211,18 +215,27 @@
   },
   "active": "f3c71711742410ee",
   "lastOpenFiles": [
+    "_posts/2026-06-25-duet-night-abyss-monster-fsm.md",
+    "_posts/2026-06-24-elden-ring-animation-root-motion.md",
+    "_posts/2026-06-24-elden-ring-level-pipeline.md",
+    "_posts/2026-06-24-elden-ring-network-auth.md",
+    "_posts/2026-06-24-elden-ring-udp-sync.md",
+    "assets/images/Pasted image 20260619162605.png",
     "_portfolio/elden-ring-recreate.md",
+    "_portfolio/duet-night-abyss-recreate.md",
+    "assets/images/Pasted image 20260625214927.png",
+    "assets/images/Pasted image 20260619153708.png",
+    "assets/images/Pasted image 20260619153401.png",
+    "assets/images/Pasted image 20260619153206.png",
+    "assets/images/Pasted image 20260619150849.png",
+    "assets/images/Pasted image 20260619150746.png",
+    "assets/images/Pasted image 20260619145653.png",
+    "assets/images/Pasted image 20260619144907.png",
+    "assets/images/Pasted image 20260619141245.png",
     "_posts/2026-06-25-duet-night-abyss-ragdoll.md",
     "_posts/2026-06-25-duet-night-abyss-quest-dialogue.md",
-    "assets/images/Pasted image 20260625214927.png",
     "_posts/2026-06-25-duet-night-abyss-physics-world.md",
     "_posts/2026-06-25-duet-night-abyss-animation-overlap.md",
-    "_posts/2026-06-25-duet-night-abyss-monster-fsm.md",
-    "_portfolio/duet-night-abyss-recreate.md",
-    "_posts/2026-06-24-elden-ring-udp-sync.md",
-    "_posts/2026-06-24-elden-ring-network-auth.md",
-    "_posts/2026-06-24-elden-ring-level-pipeline.md",
-    "_posts/2026-06-24-elden-ring-animation-root-motion.md",
     "_posts/새 폴더/2026-06-24-elden-ring-level-pipeline.md",
     "_posts/새 폴더/2026-06-24-elden-ring-animation-root-motion.md",
     "_posts/새 폴더/2026-06-24-elden-ring-network-auth.md",
@@ -238,16 +251,7 @@
     "_posts/2026-05-21-blank.md",
     "_templates/portfolio-post.md",
     "_templates/post.md",
-    "assets/images/Pasted image 20260619162605.png",
     "_portfolio/dd.md",
-    "assets/images/Pasted image 20260619153708.png",
-    "assets/images/Pasted image 20260619153401.png",
-    "assets/images/Pasted image 20260619153206.png",
-    "assets/images/Pasted image 20260619150849.png",
-    "assets/images/Pasted image 20260619150746.png",
-    "assets/images/Pasted image 20260619145840.png",
-    "assets/images/Pasted image 20260619145653.png",
-    "assets/images/Pasted image 20260619144907.png",
     "_includes/portfolio-section.html",
     "_includes/새 텍스트 문서.txt",
     "_templates",

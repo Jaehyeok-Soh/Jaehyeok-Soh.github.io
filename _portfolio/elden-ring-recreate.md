@@ -1,6 +1,8 @@
 ---
 title: 엘든링 모작(멀티플레이)
 excerpt: DirectX 11 액션 RPG 클라이언트와 ASP.NET Core 서버를 연결해 로그인, TCP 세션, 레벨 데이터 파이프라인과 UDP 상태 공유를 구현한 개인 프로젝트입니다.
+header:
+  teaser: /assets/images/Pasted%20image%2020260619162605.png
 categories:
   - Portfolio
   - Multiplayer
