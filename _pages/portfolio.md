@@ -10,16 +10,16 @@ toc: false
 ---
 
 <div class="portfolio-hero">
-  <span class="portfolio-hero__label">GAME DEVELOPER</span>
+  <span class="portfolio-hero__label">BACKEND × 3D GRAPHICS</span>
 
   <p class="portfolio-hero__lead">
-    C#/.NET 백엔드 개발 경력과 C++ 게임 프로젝트 경험을 바탕으로,
-    실시간 멀티플레이 게임 개발자로 전환을 준비하고 있습니다.
+    C#/.NET 백엔드 3년 실무와 C++/DirectX11 자체 엔진 구현 경험을 바탕으로,
+    서버와 3D 클라이언트를 함께 다룹니다.
   </p>
 
   <p class="portfolio-hero__description">
-    서버와 클라이언트의 통신 구조, 세션 및 게임 상태 관리,
-    게임 콘텐츠의 동작 흐름을 직접 구현한 프로젝트를 정리했습니다.
+    서버와 클라이언트의 통신 구조, 세션 및 상태 관리,
+    3D 렌더링과 물리, 애니메이션을 직접 구현한 프로젝트를 정리했습니다.
   </p>
 </div>
 
@@ -34,8 +34,8 @@ placeholder="MULTIPLAYER"
 {% include portfolio-section.html
 category="client"
 eyebrow="CLIENT · ENGINE"
-title="Game Client Projects"
-description="C++과 DirectX 기반으로 물리, 상태 머신, 애니메이션 툴과 게임 콘텐츠 시스템을 구현한 프로젝트입니다."
+title="3D Client Projects"
+description="C++과 DirectX 기반으로 3D 렌더링, 물리, 상태 머신, 애니메이션 툴을 구현한 프로젝트입니다."
 placeholder="CLIENT"
 %}
 

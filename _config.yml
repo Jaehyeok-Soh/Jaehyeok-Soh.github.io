@@ -21,7 +21,7 @@ title                    : "Soh's Code"
 title_separator          : "-"
 subtitle                 : # site tagline that appears below site title in masthead
 name                     : "소재혁"
-description              : "게임 개발자"
+description              : "C#/.NET 백엔드, 3D 그래픽스 개발자"
 url                      : # the base hostname & protocol for your site e.g. "https://jaehyeok-soh.github.io"
 baseurl                  : # the subpath of your site, e.g. "/blog"
 repository               : # GitHub username/repo-name e.g. "jaehyeok-soh/jaehyeok-soh.github.io"
@@ -116,7 +116,7 @@ analytics:
 author:
   name             : "소재혁"
   avatar           : # path of avatar image, e.g. "/assets/images/bio-photo.jpg"
-  bio              : "안녕하세요, **게임 개발자** 소재혁입니다."
+  bio              : "안녕하세요, **C#/.NET 백엔드 개발자** 소재혁입니다."
   location         : "Seoul, Korea"
   email            :
   # fediverse      : "@you@instance.social"  # used for fediverse:creator meta tag
