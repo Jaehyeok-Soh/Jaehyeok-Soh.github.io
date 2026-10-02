@@ -13,13 +13,12 @@ toc: false
   <span class="portfolio-hero__label">BACKEND × 3D GRAPHICS</span>
 
   <p class="portfolio-hero__lead">
-    C#/.NET 백엔드 3년 실무와 C++/DirectX11 자체 엔진 구현 경험을 바탕으로,
-    서버와 3D 클라이언트를 함께 다룹니다.
+    C#/.NET 백엔드 실무 3년, 상용 엔진 없이 C++/DirectX 11로 게임을 만든 경험이 있습니다.
   </p>
 
   <p class="portfolio-hero__description">
-    서버와 클라이언트의 통신 구조, 세션 및 상태 관리,
-    3D 렌더링과 물리, 애니메이션을 직접 구현한 프로젝트를 정리했습니다.
+    API와 데이터 처리, 서버와 클라이언트 통신, 세션과 상태 관리,
+    물리와 애니메이션, 개발 툴까지 직접 만든 프로젝트를 정리했습니다.
   </p>
 </div>
 
@@ -35,7 +34,7 @@ placeholder="MULTIPLAYER"
 category="client"
 eyebrow="CLIENT · ENGINE"
 title="3D Client Projects"
-description="C++과 DirectX 기반으로 3D 렌더링, 물리, 상태 머신, 애니메이션 툴을 구현한 프로젝트입니다."
+description="C++과 DirectX 11 기반으로 물리, 상태 머신, 애니메이션과 개발 툴을 구현한 프로젝트입니다."
 placeholder="CLIENT"
 %}
 
