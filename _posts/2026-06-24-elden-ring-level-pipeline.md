@@ -7,7 +7,7 @@ category: architecture
 project: 엘든링 모작 및 서버 연동
 project_page: /portfolio/elden-ring-recreate/
 portfolio_post: true
-excerpt: ResourceTool에서 편집한 Map/Object/Monster 배치 데이터를 ASP.NET Core API와 MongoDB에 저장하고, 게임 클라이언트에서 런타임 오브젝트로 복원한 흐름을 정리했습니다.
+excerpt: ResourceTool로 불러온 원작 Map/Object/Monster 배치 데이터를 ASP.NET Core API와 MongoDB에 저장하고, 게임 클라이언트에서 런타임 오브젝트로 복원한 흐름을 정리했습니다.
 tags:
   - C++
   - DirectX11
@@ -26,10 +26,10 @@ toc_sticky: true
 
 초기에는 맵과 오브젝트의 좌표를 클라이언트 코드에서 직접 지정했습니다. 배치를 수정할 때마다 코드를 고치고 다시 빌드해야 했고, 레벨 데이터와 게임 실행 로직도 한곳에 섞였습니다.
 
-이를 분리하기 위해 ResourceTool에서 배치한 데이터를 서버에 저장하고, 게임 클라이언트가 같은 데이터를 다시 읽어 런타임 오브젝트로 복원하는 파이프라인을 구성했습니다.
+이를 분리하기 위해 ResourceTool로 불러온 원작 배치 데이터를 서버에 저장하고, 게임 클라이언트가 같은 데이터를 다시 읽어 런타임 오브젝트로 복원하는 파이프라인을 구성했습니다.
 
 ```text
-ResourceTool 배치
+ResourceTool에 원작 배치 데이터 불러오기
 → LevelSaveRequest 구성
 → ASP.NET Core API
 → MongoDB 저장
@@ -90,7 +90,7 @@ void CImGuiMap::SaveLevel()
 }
 ```
 
-Tool 내부의 편집 상태를 서버 DTO로 변환하는 시작점입니다. 각 배치 유형을 하나의 레벨 요청으로 전달해 저장 흐름을 레벨 단위로 관리했습니다.
+Tool에 불러온 배치 데이터를 서버 DTO로 변환하는 시작점입니다. 각 배치 유형을 하나의 레벨 요청으로 전달해 저장 흐름을 레벨 단위로 관리했습니다.
 
 [GitHub에서 전체 코드 보기](https://github.com/Jaehyeok-Soh/3dsolo/blob/0d7545ce6cdc7de51b4c3541d65d9234056ed91a/ResourceTool/Private/ImGuiMap.cpp#L115-L124)
 
@@ -186,7 +186,7 @@ void CLevel_1::SetLoadedObject(const _wstring& strLayerTag, DAO::tagMapObject in
 }
 ```
 
-서버 데이터의 `prototype.tag`로 생성할 모델을 선택하고, 인스턴스별 Scale·Rotation·Position을 적용합니다. Tool에서 편집한 배치 결과가 런타임 게임 오브젝트로 이어지는 마지막 단계입니다.
+서버 데이터의 `prototype.tag`로 생성할 모델을 선택하고, 인스턴스별 Scale·Rotation·Position을 적용합니다. Tool에서 올린 배치 데이터가 런타임 게임 오브젝트로 이어지는 마지막 단계입니다.
 
 [GitHub에서 전체 코드 보기](https://github.com/Jaehyeok-Soh/3dsolo/blob/0d7545ce6cdc7de51b4c3541d65d9234056ed91a/Client/Private/Level_1.cpp#L848-L875)
 

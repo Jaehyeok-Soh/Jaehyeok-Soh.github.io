@@ -69,7 +69,7 @@ HTTP 로그인
 
 ### ResourceTool
 
-- ImGui 기반 Map/Object/Monster 배치 도구
+- 원작 맵 배치 데이터를 불러오는 ImGui 도구
 - 레벨 배치 데이터 DTO 구성
 - 서버 저장·로드 API 호출
 - 저장된 Prototype과 Transform 기반 런타임 오브젝트 복원
@@ -111,7 +111,7 @@ HTTP API와 TCP·UDP 서버는 같은 ASP.NET Core 애플리케이션에서 실�
 
 ### 1. ResourceTool–API–MongoDB 레벨 데이터 파이프라인
 
-ResourceTool에서 배치한 Map/Object/Monster 목록을 하나의 레벨 요청으로 구성하고, 서버에서 `Level`, `Prototype`, `MapObject`로 나누어 저장했습니다. 게임 클라이언트는 레벨 ID로 데이터를 조회해 Prototype을 선택하고 Position·Rotation·Scale을 적용해 런타임 오브젝트를 생성합니다.
+ResourceTool로 불러온 원작 Map/Object/Monster 배치 목록을 하나의 레벨 요청으로 구성하고, 서버에서 `Level`, `Prototype`, `MapObject`로 나누어 저장했습니다. 게임 클라이언트는 레벨 ID로 데이터를 조회해 Prototype을 선택하고 Position·Rotation·Scale을 적용해 런타임 오브젝트를 생성합니다.
 
 [레벨 데이터 파이프라인 자세히 보기]({{ '/portfolio/elden-ring/level-pipeline/' | relative_url }})
 
@@ -137,7 +137,7 @@ Assimp Bone Weight를 프로젝트 Vertex 데이터로 변환하고, 애니메�
 
 - DirectX 11 클라이언트와 ASP.NET Core 서버를 HTTP·TCP·UDP로 연결했습니다.
 - HTTP 로그인 사용자와 TCP 게임 세션 사용자를 JWT로 연결했습니다.
-- ResourceTool의 배치 데이터를 MongoDB에 저장하고 게임 클라이언트에서 복원했습니다.
+- ResourceTool로 불러온 원작 배치 데이터를 MongoDB에 저장하고 게임 클라이언트에서 복원했습니다.
 - 이전 UDP 입력이 최신 상태를 덮어쓰지 않도록 `InputSeq` 비교를 적용했습니다.
 - 수신 상태를 원격 플레이어 FSM과 Transform에 연결했습니다.
 - Root Motion 이동량을 Navigation 검사와 실제 Transform 갱신에 연결했습니다.
