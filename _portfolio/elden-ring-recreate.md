@@ -64,8 +64,6 @@ HTTP 로그인
 - DirectX 11 렌더링과 게임 오브젝트 구조
 - HTTP·TCP·UDP 클라이언트 서비스
 - 수신 상태를 원격 플레이어 FSM·Quaternion·Position에 반영
-- Bone Weight 변환과 스켈레탈 애니메이션
-- Root Motion 기반 이동과 Navigation 연동
 
 ### ResourceTool
 
@@ -127,12 +125,6 @@ HTTP 로그인에서 발급한 JWT를 TCP `CREATE/JOIN` 패킷에도 포함했�
 
 [UDP 상태 공유 프로토타입 자세히 보기]({{ '/portfolio/elden-ring/udp-sync/' | relative_url }})
 
-### 4. 스켈레탈 애니메이션과 Root Motion
-
-Assimp Bone Weight를 프로젝트 Vertex 데이터로 변환하고, 애니메이션 행렬을 이용해 스키닝을 처리했습니다. 이동 상태에서는 Root Bone의 프레임 간 Translation 차이를 캐릭터 월드 축으로 변환하고 Navigation 검사 후 Transform에 적용했습니다.
-
-[스켈레탈 애니메이션과 Root Motion 자세히 보기]({{ '/portfolio/elden-ring/animation-root-motion/' | relative_url }})
-
 ## 구현 결과
 
 - DirectX 11 클라이언트와 ASP.NET Core 서버를 HTTP·TCP·UDP로 연결했습니다.
@@ -140,7 +132,6 @@ Assimp Bone Weight를 프로젝트 Vertex 데이터로 변환하고, 애니메�
 - ResourceTool로 불러온 원작 배치 데이터를 MongoDB에 저장하고 게임 클라이언트에서 복원했습니다.
 - 이전 UDP 입력이 최신 상태를 덮어쓰지 않도록 `InputSeq` 비교를 적용했습니다.
 - 수신 상태를 원격 플레이어 FSM과 Transform에 연결했습니다.
-- Root Motion 이동량을 Navigation 검사와 실제 Transform 갱신에 연결했습니다.
 
 ## 현재 한계
 

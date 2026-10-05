@@ -147,6 +147,5 @@ void CPlayer::Sync_Key_Input(_float fTimeDelta)
 
 - [엘든링 프로젝트 종합 페이지]({{ page.project_page | relative_url }})
 - [HTTP 로그인과 TCP 세션 인증]({{ '/portfolio/elden-ring/network-auth/' | relative_url }})
-- [스켈레탈 애니메이션과 Root Motion]({{ '/portfolio/elden-ring/animation-root-motion/' | relative_url }})
 - [클라이언트 GitHub](https://github.com/Jaehyeok-Soh/3dsolo)
 - [서버 GitHub](https://github.com/Jaehyeok-Soh/3dsolo_server)
