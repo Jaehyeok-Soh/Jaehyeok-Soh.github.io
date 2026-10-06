@@ -10,10 +10,10 @@ toc: false
 ---
 
 <div class="portfolio-hero">
-  <span class="portfolio-hero__label">BACKEND × 3D GRAPHICS</span>
+  <span class="portfolio-hero__label">C#/.NET × C++/DirectX 11</span>
 
   <p class="portfolio-hero__lead">
-    C#/.NET 백엔드 실무 3년, 상용 엔진 없이 C++/DirectX 11로 실시간 3D 애플리케이션을 만든 경험이 있습니다.
+    C#/.NET 백엔드 실무 3년과, 상용 엔진 없이 C++/DirectX 11로 클라이언트, 툴, 서버를 직접 만든 경험이 있습니다.
   </p>
 
   <p class="portfolio-hero__description">
